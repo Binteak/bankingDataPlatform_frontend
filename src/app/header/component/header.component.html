@@ -1,0 +1,73 @@
+<header class="app-header">
+  <div class="app-header-content">
+    <!-- Sección izquierda -->
+    <div class="left-section">
+     
+      <img src="assets/logo/SantanderLogo.png" alt="Logo" class="logo" style="cursor:pointer" routerLink="/dashboard" routerLinkActive="active-link"/>
+      <!-- <p style="height:12px;">|</p> -->
+      <div class="separator"></div>
+      <span class="app-title" style="margin-top:6px;">CCR <span class="logo-app">Sensitivities</span></span>
+      <p style="padding-top:8px;">-</p>
+
+     
+
+       <span class="app-title" style="margin-top:6px;font-weight: bold;">{{titulo}}</span>
+       <!-- <button class="menu-button" (click)="onMenuToggle()">
+        <i class="pi pi-bars"></i>
+      </button> -->
+
+       <div class="hamburguesa" (click)="onMenuToggle()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      
+     
+    </div>
+
+    <!-- Sección derecha -->
+    <div class="right-section">
+      <!-- Botón de ayuda -->
+      <!-- header.component.html -->
+
+    
+
+      <!-- <a class="logout-button" (click)="logout()">Logout</a> -->
+      <a style="font-size: 1rem;">User: Admin</a>
+      <a class="logout-link" (click)="logout()">
+         <span>Logout</span>
+         <i class="pi pi-sign-out"></i>
+     </a>
+
+    </div>
+  </div>
+
+ 
+  <!-- Submenú debajo del header -->
+  <nav *ngIf="showMenu" class="submenu">
+    <a routerLink="/dashboard" routerLinkActive="active-link" style="text-decoration: none;">Dashboard</a>
+    &nbsp; &nbsp;| &nbsp; &nbsp;
+    <a routerLink="/supra-risk-data" routerLinkActive="active-link" style="text-decoration: none;">Supra Risk Data</a>
+    &nbsp; &nbsp;| &nbsp; &nbsp;
+    <a routerLink="/asset-control-forms" routerLinkActive="active-link" style="text-decoration: none;">Assets Control Forms</a>
+     &nbsp; &nbsp;| &nbsp; &nbsp;
+    <a routerLink="/monitoring" routerLinkActive="active-link" style="text-decoration: none;">Monitoring</a>
+     &nbsp; &nbsp;| &nbsp; &nbsp;
+    <a routerLink="/launch-process" routerLinkActive="active-link" style="text-decoration: none;">Launch Process</a>
+     &nbsp; &nbsp;| &nbsp; &nbsp;
+    <a routerLink="/process-visualization" routerLinkActive="active-link" style="text-decoration: none;">Process Visualization</a>
+     &nbsp; &nbsp;| &nbsp; &nbsp;  
+    <a routerLink="/intermediate-results" routerLinkActive="active-link" style="text-decoration: none;">Intermediate Results</a>
+    &nbsp; &nbsp;| &nbsp; &nbsp;
+    <a routerLink="/view-results" routerLinkActive="active-link" style="text-decoration: none;">View Results</a>
+    <a style="margin-left:auto;text-decoration:none;" routerLink="/documentation" routerLinkActive="active-link" >Documentation <i class="pi pi-book"></i></a>
+    
+  </nav>
+</header>
+
+
+
+
+
+

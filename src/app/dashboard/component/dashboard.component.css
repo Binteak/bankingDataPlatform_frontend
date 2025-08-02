@@ -1,0 +1,218 @@
+/* :host {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+} */
+
+/* p-card {
+  width: 400px;
+} */
+
+
+.dashboard-wrapper {
+  background-color: #f0f0f0; /* gris suave profesional */
+  min-height: 100vh; /* para que ocupe toda la altura de la pantalla */
+  padding: 2rem; /* espacio interno */
+  box-sizing: border-box;
+}
+
+.dashboard-card {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0;
+}
+
+.dashboard-content {
+  display: flex;
+  gap: 1rem;
+}
+
+.left-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.right-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  padding: 1rem;
+}
+
+.right-side img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+
+
+
+.login-container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  background: #f8f9fae7;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+/*Cards Effect*/
+.star-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  max-width: 300px;
+  margin: auto;
+}
+
+/* p-card estilo base */
+.simple-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background-color: #ffffff;
+  border-radius: 12px;
+  /* padding: 1rem; */
+  /* max-width: 200px; */
+  /* min-width: 200px; */
+  margin: auto;
+  box-shadow: 1 4px 5px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
+  text-align: center;
+  cursor: pointer;
+  padding-left:16px;
+  padding-right:16px;
+   border: 1px solid #ccc; /* borde gris claro */
+
+    display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  /* max-width: 300px; */
+  margin: auto;
+  padding: 10px;
+  background: #f8f9fae7;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+
+/* min-width: 1200px; */
+}
+
+.simple-card:hover {
+  background-color: #f0f0f0;
+  
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-icon {
+  padding-top:16px;
+  font-size: 1.5rem;
+  color: #ec0000;
+  transition: transform 0.1s ease;
+  margin-bottom: 0rem;
+}
+
+.simple-card:hover .card-icon {
+  transform: translateY(-8px);
+}
+
+.card-text {
+  font-size:10px;
+  font-weight: bold;
+
+}
+
+
+.dashboard {  margin-left: 20px; }
+
+
+
+
+.menu-flex {
+  display: flex;
+  justify-content: flex-start; /* todo a la izquierda */
+  gap: 24px; /* espacio entre frases */
+  padding-left: 16px; /* separación del borde izquierdo */
+}
+
+.menu-item {
+  position: relative;
+  padding: 12px 12px;
+  font-weight: 600;
+  color: #444; /* gris oscuro texto no seleccionado */
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+  max-width: max-content; /* ancho justo del texto */
+  transition: color 0.3s ease;
+}
+
+.menu-item::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;  /* línea solo bajo el texto */
+  height: 3px;
+  background-color: #444; /* gris oscuro línea no seleccionada */
+  border-radius: 2px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+.menu-item.selected {
+  color: #d32f2f; /* rojo */
+}
+
+.menu-item.selected::after {
+  background-color: #d32f2f;
+  transform: scaleX(1);
+}
+
+
+.cards-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente las cards visibles */
+  flex-wrap: wrap; /* Permite que las cards bajen de línea */
+  gap: 16px;
+  padding: 10px;
+}
+
+.cards-container.centered {
+  justify-content: center; /* Cuando tenga esta clase, centramos las cards */
+}
+
+::ng-deep .docButton { 
+  background-color: #ec0000;
+  border: none;
+  color: white;
+  transition: background-color 0.2s ease-in-out
+}
+
+::ng-deep .docButton:hover {
+  background-color: #a82828;
+ }
+

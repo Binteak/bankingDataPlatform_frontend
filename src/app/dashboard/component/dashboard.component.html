@@ -1,0 +1,153 @@
+
+
+<div class="grid"  style="background-color:#ffffff;margin-right:2px;margin-left:2px;">
+  <div class="col-12 md:col-6" >
+
+    <div style="position:relative;width:100%;height:250px;overflow:hiddden;">
+      <img src="assets\images\apaisado_edificio.png" alt="Imagen" style="width:100%;height:100%;object-fit:cover;"/>
+      <div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(255,0,0,0);z-index:1;">
+
+      </div>
+    </div>  
+  </div>
+  <div class="col-12 md:col-6">
+    <h1 style="color:#ec0000;padding-right:16px;" align=right>Welcome to CCR Sensitivities</h1>
+    <h4 style="padding-right:16px;" align=right>Manage your Engines and Uploads.</h4>
+    <br>
+    <br>
+    <br>
+    <div class="grid">
+      <div class="col-12 md:col-6" align="right"></div>
+      <div class="col-12 md:col-6" align="right" style="padding-right:24px;"> 
+        <p-button routerLink="/documentation" styleClass="docButton" label="Documentation" icon="pi pi-book" iconPos="right" />
+      </div> 
+    </div>
+   
+
+    
+  </div>
+</div>
+
+<br>
+
+<div class="menu-grid grid" style="padding-left:16px;">
+  <div class="col-12 md:col-6"
+    class="menu-item"
+    [class.selected]="selected === item"
+    *ngFor="let item of menuItems"
+    (click)="onSelect(item)"
+    [class.left-align]="item === 'Frase 2'"
+  >
+    {{ item }}
+  </div>
+  <div class="col-12 md:col-6"></div>
+</div>
+
+
+
+
+<!-- <div class="texto-seleccionado" style="margin-top: 16px;">
+  <h2 align="center" *ngIf="selected === 'All'">All Info showed.</h2>
+  <h2 align="center" *ngIf="selected === 'Data Management'">Este es el texto para la Frase 1.</h2>
+  <h2 align="center" *ngIf="selected === 'Execution Process'">Aquí se muestra el texto para la Frase 2.</h2>
+</div> -->
+
+<br>
+
+ <div class="grid cards-container" [class.centered]="selected === 'all'">
+      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_management === true">
+        <a [routerLink]="['/login']" class="simple-card">
+        <div style="height: 150px;">
+          <i class="pi pi-upload card-icon"></i>
+          <h4 style="color:#ec0000;">Supra Risk Data</h4>
+          <p class="card-text">Load Market and CCR Data filtered fdfd.</p>
+        </div>
+        </a>
+      </div>
+      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_management === true">
+        <a [routerLink]="['/login']" class="simple-card">
+        <div style="height: 150px;">
+          <i class="pi pi-database card-icon"></i>
+          <h4 style="color:#ec0000;">Asset Control Forms</h4>
+          <p class="card-text" align=left>Creation of value date/scenario and upload forms.</p>
+        </div>
+        </a>
+      </div>
+      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_management === true">
+        <a [routerLink]="['/login']" class="simple-card">
+        <div style="height: 150px;">
+          <i class="pi pi-desktop card-icon"></i>
+          <h4 style="color:#ec0000;" >Monitoring</h4>
+          <p class="card-text">dfdfsdfdd</p>
+        </div>
+        </a>
+      </div>
+      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_management === true">
+        <a [routerLink]="['/login']" class="simple-card">
+        <div style="height: 150px;">
+          <i class="pi pi-cog card-icon"></i>
+          <h4 style="color:#ec0000;">Launch Process</h4>
+          <p class="card-text">dsfdsfsfd</p>
+        </div>
+        </a>
+      </div>
+      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_execution === true">
+        <a [routerLink]="['/login']" class="simple-card">
+        <div style="height: 150px;">
+        <i class="pi pi-sitemap card-icon"></i>
+          <h4 style="color:#ec0000;">Process Visualization</h4>
+          <p class="card-text">dsfdsssfsdfsf</p>
+        </div>
+        </a>
+      </div>
+      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_execution === true">
+         <a [routerLink]="['/login']" class="simple-card">
+        <div style="height: 150px;">
+          <i class="pi pi-chart-bar card-icon"></i>
+          <h4 style="color:#ec0000;">Intermediate Results</h4>
+          <p class="card-text">dsfdfsdfdsfs</p>
+        </div>
+        </a>
+      </div>
+       <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_execution === true">
+         <a [routerLink]="['/login']" class="simple-card">
+        <div style="height: 150px;">
+          <i class="pi pi-chart-bar card-icon"></i>
+          <h4 style="color:#ec0000;">View Results</h4>
+          <p class="card-text">dsfdfsdfdsfs</p>
+        </div>
+        </a>
+      </div>
+    </div>
+
+
+<br>
+
+
+
+
+<!-- <div class="grid"  style="background-color:#ffffff;margin-right:2px;margin-left:2px;" *ngIf="selected_execution === true">
+  <div class="col-12 md:col-6" >
+    <div style="height:216px;"></div>
+  </div>
+  
+</div>
+<div class="grid"  style="background-color:#ffffff;margin-right:2px;margin-left:2px;" *ngIf="selected_management === true">
+  <div class="col-12 md:col-6" >
+    <div style="height:216px;"></div>
+  </div>
+  
+</div> -->
+
+
+<div class="dashboard-wrapper">
+  <!-- Aquí va tu contenido actual del dashboard -->
+  <div class="dashboard-content">
+    <!-- Tu contenido existente -->
+  
+  </div>
+</div>
+
+
+
+

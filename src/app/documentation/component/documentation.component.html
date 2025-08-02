@@ -1,0 +1,120 @@
+<div class="grid">
+  <div class="col-2">
+    <div class="card-right">
+      <h3 style="color: #ec0000;padding-left:16px;"> <i class="pi pi-book"></i> Documentation</h3>
+
+      <p-panelMenu [model]="items" styleClass="mi-panelmenu">
+        <ng-template let-item pTemplate="item">
+          <div [ngClass]="{'item-activo': itemActivo === item.label}"
+            style="padding:0.5rem 1rem; display: flex; align-items: center; cursor:pointer"
+            (click)="onItemClick(item, $event)">
+            <!--Flecha si solo tiene hijos-->
+            <i *ngIf="item.items" class="pi" [ngClass]="isExpanded(item) ? 'pi-angle-down': 'pi-angle-right'"
+              style="margin-right:0.5rem"></i>
+            <i *ngIf="item.icon" [class]="item.icon" style="margin-right:0.5rem"></i>
+            <span>{{item.label}}</span>
+            <!--SUBMENU-->
+          </div>
+          <div *ngIf="item.items && isExpanded(item)" style="margin-left:1.5rem">
+            <ng-container *ngFor="let subitem of item.items">
+              <div [ngClass]="{'item-activo': itemActivo === subitem.label}"
+                style="padding:0.5rem 1rem; display: flex; align-items: center; cursor:pointer"
+                (click)="onItemClick(subitem, $event)">
+                <i *ngIf="subitem.icon" [class]="subitem.icon" style="margin-right:0.5rem"></i>
+                <span>{{subitem.label}}</span>
+              </div>
+
+            </ng-container>
+          </div>
+
+        </ng-template>
+      </p-panelMenu>
+
+
+      <div style="height:16px;"></div>
+      <div class="grid">
+        <div class="col-12 md:col-6" align="right"></div>
+        <div class="col-12 md:col-6" align="right" style="padding-right:26px;">
+          <p-button (click)="descargarPDF();" label="All" icon="pi pi-file-pdf" iconPos="right"
+            styleClass="downloadPdf" />
+        </div>
+      </div>
+      <div style="height:10px;"></div>
+
+    </div>
+  </div>
+  <div class="col-10">
+
+
+
+    <p-card class="folio">
+      <h2>{{docuTitle}}</h2>
+      <hr>
+      <div class="right-card2 folio">
+        <div *ngIf="opcionSeleccionada === 'Introduction'">
+          <p>Currently, in the context of Stress Test CCR there is no capacity to execute internal MtM stress test
+            exercises with the required frequency, due to a set of methodological and computational limitations: </p>
+          <p style="padding-left:16px;"> • Stress testing calculation environment -Murex- shares resources with
+            production environments causing computational limitations.</p>
+          <p style="padding-left:16px;"> • Lack of calculation engines in an automatic, agile and flexible way to meet
+            the internal and regulatory stress tests exercises.</p>
+          <p style="padding-left:16px;"> • High operational risk due to manual processes and a large range of different
+            IT systems involved in the execution. Time and resources consuming</p>
+          <p style="padding-left:16px;"> • There is only a specific methodology and process to meet EBA wide stress test
+            biennial exercises, not covering other internal exercises.</p>
+          <p-divider />
+          <p>To provide the capacity to cover other possible internal uses, a ST CCR Director Plan (2020-2023) has been
+            defined. The first strategic initiative -Sensitivities- is focused on define and implement a homogeneous and
+            robust stressed MtM estimation process, via sensitivities, aligned with industry practices and regulatory
+            standards. This will allow to execute internal stress exercises in an agile way and with the adequate
+            frequency (to comply with the regulatory requirement of the use of the internal CCR stress test) and also
+            enable to challenge regulatory exercises required by supervisory bodies.</p>
+          <p-divider />
+          <p>Sensitivities initiative has also successfully concluded during 2020 and includes the following phases:</p>
+          <p style="padding-left:16px;">I. Methodological definition for the calculation of stressed MtM proxy, with
+            enough precision, for the projection of the stressed MtM by product based on the shocks applied by type of
+            sensitivity.</p>
+          <p style="padding-left:16px;">II. Implementation of stressed MtM estimation process in a robust and integrated
+            infrastructure framework (Stress test analytical node) allowing to increase IT systems capacity and
+            computing times, avoiding the current high operational risk arisen from diversity input sources and manual
+            processes and reducing time and resources dedication.</p>
+          <p-divider />
+          <p>The scope of the initiative includes the perimeter of operations of Spain and UK, that due to the
+            characteristics of the current process require to be estimated on Murex stress test environment. However,
+            this methodology could be extrapolated in a similar way to the rest of the operations of other units, if
+            appropriate.</p>
+
+        </div>
+        <div *ngIf="opcionSeleccionada === 'Supra Risk Data'">
+          <p>Texto para Supra Risk Data</p>
+        </div>
+        <div *ngIf="opcionSeleccionada === 'Asset Control Forms'">
+          <p>Texto para Asset Control Forms</p>
+        </div>
+        <div *ngIf="opcionSeleccionada === 'Subitem 1'">
+          <p>Texto para Subitem 1</p>
+        </div>
+        <div *ngIf="opcionSeleccionada === 'Monitoring'">
+          <p>Texto para Monitoring</p>
+        </div>
+        <div *ngIf="opcionSeleccionada === 'Launch Process'">
+          <p>Texto para Launch Process</p>
+        </div>
+        <div *ngIf="opcionSeleccionada === 'Process Visualization'">
+          <p>Texto para Process Visualization</p>
+        </div>
+        <div *ngIf="opcionSeleccionada === 'Intermediate Results'">
+          <p>Texto para Intermediate Results</p>
+        </div>
+        <div *ngIf="opcionSeleccionada === 'View Results'">
+          <p>Texto para View Results</p>
+        </div>
+      </div>
+    </p-card>
+
+
+
+
+
+  </div>
+</div>

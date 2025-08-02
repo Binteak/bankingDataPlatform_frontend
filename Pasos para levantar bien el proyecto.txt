@@ -1,0 +1,21 @@
+Pasos para levantar bien el proyecto:
+
+Eliminar dependencias
+Remove-Item -Recurse -Force .\node_modules
+Remove-Item -Force .\package-lock.json
+
+Limpiar cache
+npm cache clean --force
+
+Instalamos v18 y primeicons
+npm install primeng@18.0.2 primeicons@latest --save
+
+Resources (En v18 falla)
+npm install primeng@17.18.7 --force  -> por si la carpeta resources no tira
+
+Reinstalamos todas las dependencias
+npm install (Comrpobará si faltan si ya hemos instalado otras antes)
+
+Lanzar
+npx ng serve --open -> Si hay problemas de incompatibilidades o un angular global y queremos seguir usando nuestra versión
+ng serve

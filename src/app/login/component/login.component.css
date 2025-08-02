@@ -1,0 +1,76 @@
+.login-container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px;
+  margin: auto;
+  padding: 20px;
+  background: #f8f9fae7;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.login-icon {
+   font-size: 12px;;
+  max-width: 100px;
+  /* height: auto; */
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.small-label {
+  font-size: 12px;
+  font-weight: normal;
+  color: #555;
+}
+
+.logo-ccr {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ec0000; /* Rojo Santander */
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.logo-app {
+  font-size: 1rem;
+  vertical-align: super;
+  font-weight: normal;
+  margin-left: 4px;
+  position: relative;
+  top: -0.4rem;
+}
+
+.angular-powered {
+  margin-top: 1.6rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: #555;
+  display: flex;
+  align-items: center; /* Alinea verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  gap: 0.5rem; /* espacio entre icono y texto */
+  padding-left: 130px!important;
+}
+
+.angular-powered img {
+  width: 24px;
+  height: 24px;
+}
+
+

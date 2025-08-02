@@ -1,0 +1,17 @@
+<div class="login-container">
+  <div class="logo-container">
+    <img src="assets/logo/SantanderLogoRojo.png" class="login-icon">
+    <div class="logo-ccr">
+  CCR <span class="logo-app">Sensitivities</span>
+</div>
+
+  </div>
+  <input id="username" type="text" pInputText [(ngModel)]="username" placeholder="Username" />
+  <input id="password" type="text" type="password" pPassword [(ngModel)]="password" placeholder="Password" />
+  <p-button label="Login" severity="danger" (click)="onLogin()"></p-button>
+</div>
+
+<div class="angular-powered">
+  <span>Built with Angular</span>
+  <img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Angular Logo" />
+</div>
