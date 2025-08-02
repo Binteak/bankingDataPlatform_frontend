@@ -6,9 +6,10 @@
 </div>
 
   </div>
-  <input id="username" type="text" pInputText [(ngModel)]="username" placeholder="Username" />
-  <input id="password" type="text" type="password" pPassword [(ngModel)]="password" placeholder="Password" />
-  <p-button label="Login" severity="danger" (click)="onLogin()"></p-button>
+  <input id="username" type="text" [(ngModel)]="username" placeholder="Username" />
+  <input id="password" type="text" [(ngModel)]="password" placeholder="Password" />
+  <!-- <p-button label="Login" severity="danger" hidden (onClick)="onLogin()"></p-button> -->
+  <button class="custom-button" (click)="onLogin()">Login</button>
 </div>
 
 <div class="angular-powered">

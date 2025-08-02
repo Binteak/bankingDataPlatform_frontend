@@ -74,3 +74,20 @@ input {
 }
 
 
+.custom-button {
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #ec0000; /* Rojo Santander */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.custom-button:hover {
+  background-color: #d00000; /* Color más oscuro al pasar el mouse */
+}
+

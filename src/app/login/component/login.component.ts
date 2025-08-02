@@ -6,6 +6,7 @@ import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -21,10 +22,13 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   onLogin() {
-    // Simulación de credenciales correctas
-    if (this.username === 'admin' && this.password === '1234') {
+    console.log('Botón Login clickeado');
+    console.log(`Username: ${this.username}, Password: ${this.password}`);
+    if (this.username == 'admin' && this.password == '1234') {
+      console.log('Credenciales correctas');
       this.router.navigate(['/dashboard']);
     } else {
+      console.log('Credenciales incorrectas');
       this.errorMessage = 'Usuario o contraseña incorrectos';
     }
   }
