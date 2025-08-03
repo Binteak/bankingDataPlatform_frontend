@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 
-export class DashboardService {
+export class HousekeepingService {
 
   constructor(private http: HttpClient) { }
   apiUrl = 'http://127.0.0.1:8000/api';

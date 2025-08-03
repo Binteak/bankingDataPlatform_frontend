@@ -49,6 +49,7 @@ this.router.events.subscribe((event) => {
     if (url.includes('/dashboard')){ this.titulo = 'Dashboard';}
     else if (url.includes('/documentation')){ this.titulo = 'Documentation';}
     else if (url.includes('/asset-control-forms')){ this.titulo = 'Asset Control Forms';}
+    else if (url.includes('/housekeeping')){ this.titulo = 'Housekeeping';}
     else {}
   }
 
