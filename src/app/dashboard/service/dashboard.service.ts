@@ -9,14 +9,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class DashboardService {
 
   constructor(private http: HttpClient) { }
-  apiUrl = 'http://127.0.0.1:8000/api';
+  // apiUrl = 'http://127.0.0.1:8000/api';
 
-  getHousekeepingExerciseGroup(body: any) {
-    return this.http.post<any>(
-      `${this.apiUrl}/getHousekeepingExerciseGroup/`,
-      body
-    )
-  }
+  // getHousekeepingExerciseGroup(body: any) {
+  //   return this.http.post<any>(
+  //     `${this.apiUrl}/getHousekeepingExerciseGroup/`,
+  //     body
+  //   )
+  // }
 
 
 
