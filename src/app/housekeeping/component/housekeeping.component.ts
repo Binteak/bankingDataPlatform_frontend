@@ -9,7 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { RippleModule } from 'primeng/ripple';
 
-
+import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { AvatarModule } from 'primeng/avatar';
 
@@ -17,7 +17,7 @@ import { AvatarModule } from 'primeng/avatar';
 @Component({
   selector: 'app-housekeeping',
   standalone: true,
-  imports: [HttpClientModule, CardModule, RouterModule, CommonModule, ButtonModule, AvatarModule, InputTextModule, DialogModule, RippleModule],
+  imports: [FormsModule, HttpClientModule, CardModule, RouterModule, CommonModule, ButtonModule, AvatarModule, InputTextModule, DialogModule, RippleModule],
   templateUrl: './housekeeping.component.html',
   styleUrl: './housekeeping.component.css'
 })
@@ -32,6 +32,17 @@ export class HousekeepingComponent {
   selected: string = this.menuItems[0];
 
 exerciseGroups: any[] = [];
+
+
+// Estado de los 5 seleccionables (true = seleccionado)
+selectable = [false, false, false, false, false];
+
+// Switches
+switchA = false;
+switchB = false;
+
+// Input
+inputText = '';
 
   ngOnInit(): void {
     
@@ -54,4 +65,25 @@ exerciseGroups: any[] = [];
 
 
   }
+
+
+
+
+toggleSelectable(index: number) {
+  this.selectable[index] = !this.selectable[index];
+}
+
+launch() {
+  const payload = {
+    selected: this.selectable.map((v, i) => ({ index: i, selected: v })).filter(x => x.selected),
+    switchA: this.switchA,
+    switchB: this.switchB,
+    inputText: this.inputText
+  };
+  console.log('Launch payload:', payload);
+  // Aquí puedes llamar a un servicio o emitir un evento
+}
+
+
+
 }

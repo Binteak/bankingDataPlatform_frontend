@@ -6,3 +6,63 @@
       ID: {{item.id}}, Name: {{item.name}}, Value: {{item.value}}
     </li>
   </ul>
+
+
+  <p-card>
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        Configuration
+      </div>
+    </ng-template>
+  
+    <div class="card-body-row">
+      <!-- 5 seleccionables (toggle buttons) -->
+      <div class="selectables" role="group" aria-label="Selectables">
+        <button
+          class="selectable-btn"
+          *ngFor="let s of selectable; let i = index"
+          [class.selected]="selectable[i]"
+          (click)="toggleSelectable(i)">
+          Item {{ i + 1 }}
+        </button>
+      </div>
+  
+      <!-- 2 switches -->
+      <div class="switches">
+        <label class="switch-label">
+          <input type="checkbox" [(ngModel)]="switchA" />
+          <span>Switch A</span>
+        </label>
+  
+        <label class="switch-label">
+          <input type="checkbox" [(ngModel)]="switchB" />
+          <span>Switch B</span>
+        </label>
+      </div>
+  
+      <!-- Input text -->
+      <div class="input-wrap">
+        <input type="text" [(ngModel)]="inputText" placeholder="Text..." />
+      </div>
+  
+      <!-- Launch button -->
+      <div class="launch-wrap">
+        <button type="button" class="launch-btn" (click)="launch()">Launch</button>
+        <!-- <p-button (click)="launch()" styleClass="docButton" label="Launch" icon="pi pi-book" iconPos="right" /> -->
+      </div>
+    </div>
+  </p-card>
+
+
+  <br>
+
+  <p-card>
+    <ng-template pTemplate="header">
+        <div class="card-header">
+          Upload Files
+        </div>
+      </ng-template>
+    
+      <div class="card-body-row">hola?</div>
+  </p-card>
+  

@@ -1,0 +1,120 @@
+:host {
+    display: block;
+    background-color: white;
+    min-height: 100vh; /* para que ocupe toda la pantalla */
+    padding: 1rem; /* opcional, para separar contenido */
+  }
+
+/* Card header background (gris) y cuerpo blanco */
+::ng-deep .p-card .card-header {
+    background-color: #f0f0f0; /* gris claro */
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.1); /* borde gris muy claro */
+  border-radius: 4px; /* opcional, para bordes redondeados */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* sombra suave para darle más profundidad */
+  }
+  
+  /* Forzar body blanco */
+  ::ng-deep .p-card .p-card-content {
+    background-color: #ffffff;
+    padding: 1rem;
+  }
+  
+  /* Fila principal */
+  .card-body-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+  }
+  
+  /* Selectables */
+  .selectables {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .selectable-btn {
+    padding: 0.45rem 0.7rem;
+    border: 1px solid #cfcfcf;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .selectable-btn.selected {
+    background: #1976d2;
+    color: #fff;
+    border-color: #1976d2;
+  }
+  
+  /* Switches */
+  .switches {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+  .switch-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+  }
+  /* Simple styling for checkbox as small switch */
+  .switch-label input[type="checkbox"] {
+    width: 36px;
+    height: 20px;
+    appearance: none;
+    background: #e6e6e6;
+    border-radius: 12px;
+    position: relative;
+    outline: none;
+    cursor: pointer;
+  }
+  .switch-label input[type="checkbox"]::after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.15s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  }
+  .switch-label input[type="checkbox"]:checked {
+    background: #ec0000;
+  }
+  .switch-label input[type="checkbox"]:checked::after {
+    transform: translateX(16px);
+  }
+  
+  /* Input text */
+  .input-wrap input[type="text"] {
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #cfcfcf;
+  }
+  
+  /* Launch button */
+  .launch-btn {
+    padding: 0.45rem 0.9rem;
+    border-radius: 6px;
+    background: #ec0000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Responsive: en pantallas muy pequeñas apila un poco */
+  @media (max-width: 720px) {
+    .card-body-row {
+      gap: 0.5rem;
+    }
+    .selectables {
+      flex-wrap: wrap;
+    }
+  }
+  
