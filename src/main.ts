@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 bootstrapApplication(AppComponent, {
-  providers: [
+  providers: [ 
     provideRouter(appRoutes), 
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(HttpClientModule)
