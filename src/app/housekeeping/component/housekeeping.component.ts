@@ -23,7 +23,7 @@ import { AvatarModule } from 'primeng/avatar';
 })
 export class HousekeepingComponent {
 
-  constructor(private dashboardService: HousekeepingService) { }
+  constructor(private housekeepingService: HousekeepingService) { }
 
   selected_execution: boolean = false;
   selected_management: boolean = false;
@@ -40,7 +40,7 @@ exerciseGroups: any[] = [];
       'screenName': 'dashboard',
     };
 
-    this.dashboardService.getHousekeepingExerciseGroup(body).subscribe(
+    this.housekeepingService.getHousekeepingExerciseGroup(body).subscribe(
         (res: any) => {
           this.exerciseGroups = JSON.parse(res.data);// Almacena la respuesta en la variable
           console.log('Housekeeping data:', this.exerciseGroups);
