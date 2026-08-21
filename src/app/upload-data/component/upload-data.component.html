@@ -1,0 +1,304 @@
+<div class="upload-data-container">
+
+  <!-- ===================================================== -->
+  <!-- HEADER -->
+  <!-- ===================================================== -->
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+        Upload Data
+      </h1>
+
+      <p>
+        Upload financial risk exposure data into the platform.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <p-divider></p-divider>
+
+
+  <!-- ===================================================== -->
+  <!-- UPLOAD -->
+  <!-- ===================================================== -->
+
+  <p-card>
+
+    <div class="upload-section">
+
+      <div class="upload-title">
+
+        <h2>
+          Upload Risk Data
+        </h2>
+
+        <p>
+          Select a CSV or Excel file containing risk exposure data.
+        </p>
+
+      </div>
+
+
+      <!-- FILE SELECT -->
+
+      <p-fileUpload
+        mode="basic"
+        name="file"
+        accept=".csv,.xlsx"
+        chooseLabel="Select File"
+        chooseIcon="pi pi-folder-open"
+        (onSelect)="onFileSelected($event)">
+      </p-fileUpload>
+
+
+      <!-- SELECTED FILE -->
+
+      <div
+        class="selected-file"
+        *ngIf="selectedFile">
+
+        <div class="file-icon">
+
+          <i class="pi pi-file"></i>
+
+        </div>
+
+
+        <div class="file-information">
+
+          <strong>
+            {{ uploadedFileName }}
+          </strong>
+
+          <small>
+            {{ selectedFile.size / 1024 | number:'1.0-2' }} KB
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- ACTIONS -->
+
+      <div class="actions">
+
+        <button
+          pButton
+          type="button"
+          label="Process File"
+          icon="pi pi-upload"
+          [disabled]="!selectedFile || uploading"
+          [loading]="uploading"
+          (click)="processFile()">
+        </button>
+
+
+        <button
+          pButton
+          type="button"
+          label="Clear"
+          icon="pi pi-times"
+          class="p-button-secondary"
+          [disabled]="uploading"
+          (click)="clear()">
+        </button>
+
+      </div>
+
+    </div>
+
+  </p-card>
+
+
+  <!-- ===================================================== -->
+  <!-- PREVIEW -->
+  <!-- ===================================================== -->
+
+  <p-card
+    *ngIf="previewData.length > 0"
+    class="preview-card">
+
+    <div class="table-header">
+
+      <div>
+
+        <h2>
+          Data Preview
+        </h2>
+
+        <span>
+          {{ previewData.length }} records detected
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <p-table
+      [value]="previewData"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [scrollable]="true"
+      scrollHeight="500px"
+      styleClass="p-datatable-sm">
+
+
+      <!-- HEADER -->
+
+      <ng-template pTemplate="header">
+
+        <tr>
+
+          <th
+            *ngFor="let column of previewColumns">
+
+            {{ column }}
+
+          </th>
+
+        </tr>
+
+      </ng-template>
+
+
+      <!-- BODY -->
+
+      <ng-template
+        pTemplate="body"
+        let-row>
+
+        <tr>
+
+          <td
+            *ngFor="let column of previewColumns">
+
+            {{ row[column] }}
+
+          </td>
+
+        </tr>
+
+      </ng-template>
+
+
+    </p-table>
+
+  </p-card>
+
+
+  <!-- ===================================================== -->
+  <!-- SUCCESS -->
+  <!-- ===================================================== -->
+
+  <p-card
+    *ngIf="uploadSuccess"
+    class="result-card success-card">
+
+    <div class="result-content">
+
+      <div class="result-icon">
+
+        <i class="pi pi-check-circle"></i>
+
+      </div>
+
+
+      <div>
+
+        <h2>
+          Upload completed
+        </h2>
+
+        <p>
+          {{ successMessage }}
+        </p>
+
+        <strong>
+          Records processed:
+          {{ recordsProcessed }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </p-card>
+
+
+  <!-- ===================================================== -->
+  <!-- ERROR -->
+  <!-- ===================================================== -->
+
+  <p-card
+    *ngIf="uploadError"
+    class="result-card error-card">
+
+    <div class="result-content">
+
+      <div class="result-icon">
+
+        <i class="pi pi-exclamation-triangle"></i>
+
+      </div>
+
+
+      <div>
+
+        <h2>
+          Upload failed
+        </h2>
+
+        <p>
+          {{ errorMessage }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </p-card>
+
+
+  <!-- ===================================================== -->
+  <!-- INFORMATION -->
+  <!-- ===================================================== -->
+
+  <p-card class="information-card">
+
+    <div class="information-content">
+
+      <i class="pi pi-info-circle"></i>
+
+
+      <div>
+
+        <h3>
+          Supported files
+        </h3>
+
+        <p>
+          CSV and Excel files containing risk exposure
+          information can be uploaded.
+        </p>
+
+        <p>
+          The uploaded data will be inserted into the
+          <strong>risk_exposures</strong> database table.
+        </p>
+
+      </div>
+
+    </div>
+
+  </p-card>
+
+</div>

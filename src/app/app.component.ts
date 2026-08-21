@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/component/header.component';
 })
 export class AppComponent {
   isLoginPage = false;
+  title = 'frontend';
 
   constructor(private router: Router) {
     

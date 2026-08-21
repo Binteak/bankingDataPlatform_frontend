@@ -48,21 +48,32 @@
   <nav *ngIf="showMenu" class="submenu">
     <a routerLink="/dashboard" routerLinkActive="active-link" style="text-decoration: none;">Dashboard</a>
     &nbsp; &nbsp;| &nbsp; &nbsp;
-    <a routerLink="/housekeeping" routerLinkActive="active-link" style="text-decoration: none;">Housekeeping</a>
+
+    <a routerLink="/data-explorer" routerLinkActive="active-link" style="text-decoration: none;">Data Explorer</a>
     &nbsp; &nbsp;| &nbsp; &nbsp;
-    <a routerLink="/supra-risk-data" routerLinkActive="active-link" style="text-decoration: none;">Supra Risk Data</a>
+
+    <a routerLink="/upload-data" routerLinkActive="active-link" style="text-decoration: none;">Upload Data</a>
     &nbsp; &nbsp;| &nbsp; &nbsp;
-    <a routerLink="/asset-control-forms" routerLinkActive="active-link" style="text-decoration: none;">Assets Control Forms</a>
-     &nbsp; &nbsp;| &nbsp; &nbsp;
-    <a routerLink="/monitoring" routerLinkActive="active-link" style="text-decoration: none;">Monitoring</a>
-     &nbsp; &nbsp;| &nbsp; &nbsp;
-    <a routerLink="/launch-process" routerLinkActive="active-link" style="text-decoration: none;">Launch Process</a>
-     &nbsp; &nbsp;| &nbsp; &nbsp;
-    <a routerLink="/process-visualization" routerLinkActive="active-link" style="text-decoration: none;">Process Visualization</a>
-     &nbsp; &nbsp;| &nbsp; &nbsp;  
-    <a routerLink="/intermediate-results" routerLinkActive="active-link" style="text-decoration: none;">Intermediate Results</a>
+  
+    <a routerLink="/housekeeping" routerLinkActive="active-link" style="text-decoration: none;">Housekeeping</a> <!--borramos algo en base de datos-->
     &nbsp; &nbsp;| &nbsp; &nbsp;
-    <a routerLink="/view-results" routerLinkActive="active-link" style="text-decoration: none;">View Results</a>
+
+
+    <a routerLink="/data-quality" routerLinkActive="active-link" style="text-decoration: none;">Data Quality</a><!--pasamos lo que tenemos-->
+    &nbsp; &nbsp;| &nbsp; &nbsp;
+
+  
+    <a routerLink="/audit-reporting" routerLinkActive="active-link" style="text-decoration: none;">Audit Reporting</a><!--Esta se muestra solo el diseño-->
+     &nbsp; &nbsp;| &nbsp; &nbsp;
+
+
+
+       <a routerLink="/asset-control-forms" routerLinkActive="active-link" style="text-decoration: none;">__Asset Control Forms</a><!--Subimos información a base de datos-->
+     &nbsp; &nbsp;| &nbsp; &nbsp;
+
+    <a routerLink="/launch-process" routerLinkActive="active-link" style="text-decoration: none;">__Launch Process</a><!--generamos un audit reporting después de procesar que prueba queremos-->
+    &nbsp; &nbsp;| &nbsp; &nbsp;
+ 
     <a style="margin-left:auto;text-decoration:none;" routerLink="/documentation" routerLinkActive="active-link" >Documentation <i class="pi pi-book"></i></a>
     
   </nav>

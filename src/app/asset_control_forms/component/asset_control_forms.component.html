@@ -1,1 +1,117 @@
-<p>asset control forms works!</p>
+
+
+
+                <div class="grid">
+                    <div class="col-5">
+                      <div class="card-style" style="padding-bottom:10px;">
+                  
+                        <h3 style="color: #ec0000;padding-left:16px;">Scenario Creation</h3>
+                        <hr>
+                        <div class="grid">
+                          <div class="col" style="padding-left: 26px;">
+                            <span class="text-secondary font-medium block mb-2">Select a valid Date</span>
+                            <p-dropdown id="date_id" [options]="dates" [(ngModel)]="selectedDate" optionLabel="date"
+                              placeholder="Value Date">
+                            </p-dropdown>
+                          </div>
+                          <div class="col">
+                            <span class="text-secondary font-medium block mb-2">Insert a custom Scenario</span>
+                            <input id="scenario_id" type="text" pInputText [(ngModel)]="scenario" placeholder="EBA20_STRESS" [disabled]="!selectedDate"/>
+                          </div>
+                          <div class="col-6" align="right" style="padding-right:26px;">
+                            <div style="height:30px;"></div>
+                            <p-button pRipple label="Create Scenario" class="p-button-danger" severity="danger" (onClick)="addMessages()" [disabled]="!selectedDate"/>
+                          </div>
+                        </div>
+                  
+                        <div *ngIf="showAlert" class="custom-alert">
+                          <span class="" style="padding-left:10px;"><strong><i class="pi pi-check"></i></strong></span>&nbsp;&nbsp;
+                          <span class="alert-text"><b>Success</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Scenario has been created: '{{selectedDate?.date}} - {{scenario}}'.</span>
+                          <span class="alert-close" style="padding-right:10px;" (click)="showAlert = false">&times;</span>
+                        </div>
+                  
+                      </div>
+                    </div>
+                  
+                    <div class="col-7">
+                   
+                      <div class="card-style">
+                        <h3 style="color: #ec0000;padding-left:16px;">Upload</h3>
+                        <hr>
+     
+
+
+                        <p-fileUpload 
+                        [disabled]="!showAlert" 
+                        name="demo[]" 
+                        url="https://www.primefaces.org/cdn/api/upload.php" 
+                        (onUpload)="onUpload($event)" 
+                        (onRemove)="onRemove($event)"
+                        [multiple]="true"
+                        [maxFileSize]="1000000"
+                        #fu
+                        showDragDrop="true"
+                        mode="advanced">
+                    
+                        <ng-template pTemplate="content">
+                            <div class="custom-drop-area" *ngIf="!fu.files?.length" (click)="fu.choose()">
+                               <p>
+                                <strong>Drag your files here</strong> or click anywhere in this area to select them
+                               </p>
+                            </div>
+                    
+                            <ul *ngIf="uploadedFiles.length > 0" class="custom-alert-uploads" style="padding-left:20px;">
+                                <p><strong>Uploaded Files:</strong></p>
+                                <li *ngFor="let file of uploadedFiles" style="margin-left:20px;margin-bottom:10px;">
+                                    {{file.name}} - {{file.size}} bytes
+                                </li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                    
+
+</div>
+</div>
+</div>
+
+<br>
+
+<div class="grid">
+    <div class="col-12">
+      <div class="card-style" style="padding-bottom:10px;">
+  
+        <h3 style="color: #ec0000;padding-left:16px;">Last Uploads</h3>
+        <hr>
+  
+        <p-table [value]="tableData" #dt [value]="tableData" 
+         [filterDelay]="100"
+         [scrollable]="true" scrollDirection="vertical" scrollHeight="300px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>INPUT ID<p-columnFilter placeholder="filter column..." field="inputId" matchmode="contains" [showMatchModes]="false"></p-columnFilter></th>
+                    <th>VALUE DATE<p-columnFilter placeholder="filter column..." field="valueDate" matchmode="contains" [showMatchModes]="false"></p-columnFilter></th>
+                    <th>SCENARIO ID<p-columnFilter placeholder="filter column..." field="scenarioId" matchmode="contains" [showMatchModes]="false"></p-columnFilter></th>
+                    <th>USERNAME<p-columnFilter placeholder="filter column..." field="username" matchmode="contains" [showMatchModes]="false"></p-columnFilter></th>
+                    <th>FILENAME<p-columnFilter placeholder="filter column..." field="filename" matchmode="contains" [showMatchModes]="false"></p-columnFilter></th>
+                    <th>LAST UPDATE<p-columnFilter placeholder="filter column..." field="lastUpdate" matchmode="contains" [showMatchModes]="false"></p-columnFilter></th>
+                    <th>STATUS<p-columnFilter placeholder="filter column..." field="status" matchmode="contains" [showMatchModes]="false"></p-columnFilter></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-row>
+                <tr>
+                    <td>{{row.inputId}}</td>
+                    <td>{{row.valueDate}}</td>
+                    <td>{{row.scenarioId}}</td>
+                    <td>{{row.username}}</td>
+                    <td>{{row.filename}}</td>
+                    <td>{{row.lastUpdate}}</td>
+                    <td>
+                        <p-button pRipple label="{{row.status}}" (onClick)="buttonInfo()" [ngClass]="row.status === 'INSERTED' ? 'btn-green' : 'btn-red'"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+  
+      </div>
+    </div>
+  </div>

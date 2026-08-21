@@ -1,0 +1,252 @@
+.upload-data-container {
+
+  width: 100%;
+
+  padding: 2rem;
+
+  box-sizing: border-box;
+
+}
+
+
+.page-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+}
+
+
+.page-header h1 {
+
+  margin: 0;
+
+  font-size: 2rem;
+
+}
+
+
+.page-header p {
+
+  margin-top: 0.5rem;
+
+  color: #777;
+
+}
+
+
+/* ========================================================= */
+/* UPLOAD */
+/* ========================================================= */
+
+.upload-section {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.5rem;
+
+}
+
+
+.upload-title h2 {
+
+  margin: 0;
+
+}
+
+
+.upload-title p {
+
+  margin-top: 0.5rem;
+
+  color: #777;
+
+}
+
+
+/* ========================================================= */
+/* SELECTED FILE */
+/* ========================================================= */
+
+.selected-file {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 1rem;
+
+  padding: 1rem;
+
+  border: 1px solid #ddd;
+
+  border-radius: 8px;
+
+  background: #fafafa;
+
+}
+
+
+.file-icon {
+
+  font-size: 2rem;
+
+}
+
+
+.file-information {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 0.25rem;
+
+}
+
+
+.file-information small {
+
+  color: #777;
+
+}
+
+
+/* ========================================================= */
+/* ACTIONS */
+/* ========================================================= */
+
+.actions {
+
+  display: flex;
+
+  gap: 1rem;
+
+}
+
+
+/* ========================================================= */
+/* RESULT */
+/* ========================================================= */
+
+.result-card {
+
+  margin-top: 1.5rem;
+
+}
+
+
+.result-content {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 1rem;
+
+}
+
+
+.result-icon {
+
+  font-size: 2rem;
+
+}
+
+
+.result-content h2 {
+
+  margin: 0 0 0.5rem 0;
+
+}
+
+
+.result-content p {
+
+  margin: 0 0 0.5rem 0;
+
+}
+
+
+.success-card {
+
+  border-left: 5px solid #22c55e;
+
+}
+
+
+.error-card {
+
+  border-left: 5px solid #ef4444;
+
+}
+
+
+/* ========================================================= */
+/* INFORMATION */
+/* ========================================================= */
+
+.information-card {
+
+  margin-top: 1.5rem;
+
+}
+
+
+.information-content {
+
+  display: flex;
+
+  gap: 1rem;
+
+  align-items: flex-start;
+
+}
+
+
+.information-content > i {
+
+  font-size: 1.5rem;
+
+}
+
+
+.information-content h3 {
+
+  margin: 0 0 0.5rem 0;
+
+}
+
+
+.information-content p {
+
+  margin: 0.25rem 0;
+
+  color: #666;
+
+}
+
+.preview-card {
+  margin-top: 1.5rem;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.table-header h2 {
+  margin: 0;
+}
+
+.table-header span {
+  color: #777;
+  font-size: 0.9rem;
+}

@@ -9,12 +9,18 @@
 } */
 
 
+
+
 .dashboard-wrapper {
-  background-color: #f0f0f0; /* gris suave profesional */
-  min-height: 100vh; /* para que ocupe toda la altura de la pantalla */
-  padding: 2rem; /* espacio interno */
+  min-height: calc(100vh - 100px);
+
+  padding: 24px;
+
+  background: #f4f5f6;
+
   box-sizing: border-box;
 }
+
 
 .dashboard-card {
   max-width: 1000px;
@@ -205,14 +211,34 @@
   justify-content: center; /* Cuando tenga esta clase, centramos las cards */
 }
 
-::ng-deep .docButton { 
-  background-color: #ec0000;
-  border: none;
-  color: white;
-  transition: background-color 0.2s ease-in-out
+::ng-deep .docButton {
+  background: #ec0000 !important;
+
+  border: none !important;
+
+  padding: 10px 16px !important;
+
+  border-radius: 5px !important;
+
+  color: #ffffff !important;
+
+  font-size: 13px !important;
+  font-weight: 600 !important;
+
+  box-shadow:
+    0 2px 5px rgba(236, 0, 0, 0.18);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 ::ng-deep .docButton:hover {
-  background-color: #a82828;
- }
+  background: #c90000 !important;
 
+  transform: translateY(-1px);
+
+  box-shadow:
+    0 4px 10px rgba(236, 0, 0, 0.22);
+}

@@ -1,3 +1,6 @@
+//Jasmine
+//npm run test & coverage
+
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssetControlFormsComponent } from './asset_control_forms.component';

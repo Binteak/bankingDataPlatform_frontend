@@ -1,89 +1,290 @@
-import { Component } from '@angular/core';
-import { HousekeepingService } from '../service/housekeeping.service';
-import { HttpClientModule } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { CardModule } from 'primeng/card';
-import { RouterModule, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { RippleModule } from 'primeng/ripple';
-
-import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-import { AvatarModule } from 'primeng/avatar';
+import { DropdownModule } from 'primeng/dropdown';
+import { DividerModule } from 'primeng/divider';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+
+import {
+  ConfirmationService,
+  MessageService
+} from 'primeng/api';
+
+import { HousekeepingService } from '../service/housekeeping.service';
 
 
 @Component({
-  selector: 'app-housekeeping',
   standalone: true,
-  imports: [FormsModule, HttpClientModule, CardModule, RouterModule, CommonModule, ButtonModule, AvatarModule, InputTextModule, DialogModule, RippleModule],
+
+  selector: 'app-housekeeping',
+
+  imports: [
+    CommonModule,
+    FormsModule,
+    CardModule,
+    ButtonModule,
+    TableModule,
+    InputTextModule,
+    DropdownModule,
+    DividerModule,
+    ConfirmDialogModule,
+    ToastModule
+  ],
+
+  providers: [
+    ConfirmationService,
+    MessageService
+  ],
+
   templateUrl: './housekeeping.component.html',
-  styleUrl: './housekeeping.component.css'
+
+  styleUrls: [
+    './housekeeping.component.css'
+  ]
 })
-export class HousekeepingComponent {
-
-  constructor(private housekeepingService: HousekeepingService) { }
-
-  selected_execution: boolean = false;
-  selected_management: boolean = false;
-  selected_all: boolean = true;
-  menuItems = ['All', 'Data Management', 'Execution Process'];
-  selected: string = this.menuItems[0];
-
-exerciseGroups: any[] = [];
 
 
-// Estado de los 5 seleccionables (true = seleccionado)
-selectable = [false, false, false, false, false];
+export class HousekeepingComponent
+  implements OnInit {
 
-// Switches
-switchA = false;
-switchB = false;
 
-// Input
-inputText = '';
+  records: any[] = [];
+
+  selectedRecords: any[] = [];
+
+  loading = false;
+
+
+  filters = {
+
+    reporting_date: '',
+    entity_id: '',
+    entity_name: '',
+    country: '',
+    portfolio: '',
+    product_type: '',
+    risk_stage: '',
+    rating: '',
+    default_flag: '',
+    data_source: ''
+
+  };
+
+
+  countries = [
+    { label: 'All', value: '' },
+    { label: 'Spain', value: 'ES' },
+    { label: 'France', value: 'FR' },
+    { label: 'Germany', value: 'DE' },
+    { label: 'Portugal', value: 'PT' },
+    { label: 'Italy', value: 'IT' },
+    { label: 'Ireland', value: 'IE' },
+    { label: 'Belgium', value: 'BE' },
+    { label: 'Netherlands', value: 'NL' }
+  ];
+
+
+  portfolios = [
+    { label: 'All', value: '' },
+    { label: 'Corporate', value: 'CORPORATE' },
+    { label: 'SME', value: 'SME' },
+    { label: 'Retail', value: 'RETAIL' }
+  ];
+
+
+  productTypes = [
+    { label: 'All', value: '' },
+    { label: 'Loan', value: 'LOAN' },
+    { label: 'Credit Line', value: 'CREDIT_LINE' },
+    { label: 'Mortgage', value: 'MORTGAGE' }
+  ];
+
+
+  riskStages = [
+    { label: 'All', value: '' },
+    { label: 'Stage 1', value: 'STAGE_1' },
+    { label: 'Stage 2', value: 'STAGE_2' },
+    { label: 'Stage 3', value: 'STAGE_3' }
+  ];
+
+
+  defaultOptions = [
+    { label: 'All', value: '' },
+    { label: 'Default', value: 'true' },
+    { label: 'Not Default', value: 'false' }
+  ];
+
+
+  dataSources = [
+    { label: 'All', value: '' },
+    { label: 'Core Banking', value: 'CORE_BANKING' },
+    { label: 'Risk Engine', value: 'RISK_ENGINE' }
+  ];
+
+
+  constructor(
+    private api: HousekeepingService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
+
 
   ngOnInit(): void {
-    
 
-    let body = {
-      'screenName': 'dashboard',
-    };
-
-    this.housekeepingService.getHousekeepingExerciseGroup(body).subscribe(
-        (res: any) => {
-          this.exerciseGroups = JSON.parse(res.data);// Almacena la respuesta en la variable
-          console.log('Housekeeping data:', this.exerciseGroups);
-        },
-        (err: any) => {
-          console.error('Error fetching housekeeping data:', err);
-        }
-      );
-    
-
-
+    this.search();
 
   }
 
 
+  search(): void {
+
+    this.loading = true;
+
+    this.selectedRecords = [];
+
+    this.api.search(
+      this.filters
+    ).subscribe({
+
+      next: (response: any) => {
+
+        this.records =
+          response?.data ?? [];
+
+        this.loading = false;
+
+      },
+
+      error: (error) => {
+
+        console.error(error);
+
+        this.records = [];
+
+        this.loading = false;
+
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Unable to retrieve records.'
+        });
+
+      }
+
+    });
+
+  }
 
 
-toggleSelectable(index: number) {
-  this.selectable[index] = !this.selectable[index];
-}
+  clearFilters(): void {
 
-launch() {
-  const payload = {
-    selected: this.selectable.map((v, i) => ({ index: i, selected: v })).filter(x => x.selected),
-    switchA: this.switchA,
-    switchB: this.switchB,
-    inputText: this.inputText
-  };
-  console.log('Launch payload:', payload);
-  // Aquí puedes llamar a un servicio o emitir un evento
-}
+    this.filters = {
+
+      reporting_date: '',
+      entity_id: '',
+      entity_name: '',
+      country: '',
+      portfolio: '',
+      product_type: '',
+      risk_stage: '',
+      rating: '',
+      default_flag: '',
+      data_source: ''
+
+    };
+
+    this.search();
+
+  }
 
 
+  deleteSelected(): void {
+
+    if (
+      this.selectedRecords.length === 0
+    ) {
+
+      return;
+
+    }
+
+
+    const count =
+      this.selectedRecords.length;
+
+
+    this.confirmationService.confirm({
+
+      message:
+        `Are you sure you want to delete ${count} selected record(s)?`,
+
+      header: 'Confirm deletion',
+
+      icon: 'pi pi-exclamation-triangle',
+
+      acceptButtonStyleClass:
+        'p-button-danger',
+
+      rejectButtonStyleClass:
+        'p-button-secondary',
+
+      accept: () => {
+
+        const ids =
+          this.selectedRecords.map(
+            record => record.id
+          );
+
+        this.loading = true;
+
+
+        this.api.deleteRecords(
+          ids
+        ).subscribe({
+
+          next: (response: any) => {
+
+            this.loading = false;
+
+            this.selectedRecords = [];
+
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Deleted',
+              detail:
+                `${response.recordsDeleted} record(s) deleted.`
+            });
+
+            this.search();
+
+          },
+
+          error: (error) => {
+
+            this.loading = false;
+
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail:
+                error?.error?.message ??
+                'Unable to delete records.'
+            });
+
+          }
+
+        });
+
+      }
+
+    });
+
+  }
 
 }

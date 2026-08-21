@@ -20,6 +20,11 @@ import { HeaderComponent } from './header/component/header.component';
 import { DocumentationComponent } from './documentation/component/documentation.component';
 import { LoginComponent } from './login/component/login.component';
 import { HousekeepingComponent } from './housekeeping/component/housekeeping.component';
+import { LaunchProcessComponent } from './launch-process/component/launch-process.component';
+
+import { DataExplorerComponent } from './data-explorer/component/data-explorer.component';
+
+import { ProcessVisualizationComponent } from './process-visualization/component/process-visualization.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +32,10 @@ import { HousekeepingComponent } from './housekeeping/component/housekeeping.com
     LoginComponent,
     HeaderComponent,
     DocumentationComponent,
-    HousekeepingComponent
+    HousekeepingComponent,
+    LaunchProcessComponent,
+    DataExplorerComponent,
+    ProcessVisualizationComponent
   ],
   imports: [
     HttpClientModule,

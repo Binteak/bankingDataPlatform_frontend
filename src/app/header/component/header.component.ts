@@ -50,6 +50,11 @@ this.router.events.subscribe((event) => {
     else if (url.includes('/documentation')){ this.titulo = 'Documentation';}
     else if (url.includes('/asset-control-forms')){ this.titulo = 'Asset Control Forms';}
     else if (url.includes('/housekeeping')){ this.titulo = 'Housekeeping';}
+    else if (url.includes('/launch-process')){ this.titulo = 'Launch Process';}
+    else if (url.includes('/upload-data')){ this.titulo = 'Upload Data';}
+    else if (url.includes('/data-explorer')){ this.titulo = 'Data Explorer';}
+    else if (url.includes('/data-quality')){ this.titulo = 'Data Quality';}
+    else if (url.includes('/audit-reporting')){ this.titulo = 'Audit Reporting';}
     else {}
   }
 

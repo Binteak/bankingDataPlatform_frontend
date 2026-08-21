@@ -1,68 +1,398 @@
-<p>housekeeping works!</p>
-<!-- <p>{{exerciseGroups}}</p> -->
+<div class="housekeeping-container">
 
-<ul>
-    <li *ngFor="let item of exerciseGroups">
-      ID: {{item.id}}, Name: {{item.name}}, Value: {{item.value}}
-    </li>
-  </ul>
+  <div class="page-header">
 
+    <div>
 
-  <p-card>
-    <ng-template pTemplate="header">
-      <div class="card-header">
-        Configuration
-      </div>
-    </ng-template>
-  
-    <div class="card-body-row">
-      <!-- 5 seleccionables (toggle buttons) -->
-      <div class="selectables" role="group" aria-label="Selectables">
-        <button
-          class="selectable-btn"
-          *ngFor="let s of selectable; let i = index"
-          [class.selected]="selectable[i]"
-          (click)="toggleSelectable(i)">
-          Item {{ i + 1 }}
-        </button>
-      </div>
-  
-      <!-- 2 switches -->
-      <div class="switches">
-        <label class="switch-label">
-          <input type="checkbox" [(ngModel)]="switchA" />
-          <span>Switch A</span>
-        </label>
-  
-        <label class="switch-label">
-          <input type="checkbox" [(ngModel)]="switchB" />
-          <span>Switch B</span>
-        </label>
-      </div>
-  
-      <!-- Input text -->
-      <div class="input-wrap">
-        <input type="text" [(ngModel)]="inputText" placeholder="Text..." />
-      </div>
-  
-      <!-- Launch button -->
-      <div class="launch-wrap">
-        <button type="button" class="launch-btn" (click)="launch()">Launch</button>
-        <!-- <p-button (click)="launch()" styleClass="docButton" label="Launch" icon="pi pi-book" iconPos="right" /> -->
-      </div>
+      <h1>
+        Housekeeping
+      </h1>
+
+      <p>
+        Search, review and remove risk exposure records.
+      </p>
+
     </div>
-  </p-card>
+
+  </div>
 
 
-  <br>
+  <p-divider></p-divider>
+
+
+  <!-- FILTERS -->
 
   <p-card>
-    <ng-template pTemplate="header">
-        <div class="card-header">
-          Upload Files
-        </div>
-      </ng-template>
-    
-      <div class="card-body-row">hola?</div>
+
+    <div class="filters-header">
+
+      <h2>
+        Search Risk Exposures
+      </h2>
+
+      <span>
+        Use the filters to identify records.
+      </span>
+
+    </div>
+
+
+    <div class="filters-grid">
+
+
+      <div class="filter-field">
+
+        <label>
+          Reporting Date
+        </label>
+
+        <input
+          pInputText
+          type="date"
+          [(ngModel)]="filters.reporting_date">
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label>
+          Entity ID
+        </label>
+
+        <input
+          pInputText
+          placeholder="ENT-0001"
+          [(ngModel)]="filters.entity_id">
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label>
+          Entity Name
+        </label>
+
+        <input
+          pInputText
+          placeholder="Entity name"
+          [(ngModel)]="filters.entity_name">
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label>
+          Country
+        </label>
+
+        <p-dropdown
+          [options]="countries"
+          optionLabel="label"
+          optionValue="value"
+          [(ngModel)]="filters.country">
+        </p-dropdown>
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label>
+          Portfolio
+        </label>
+
+        <p-dropdown
+          [options]="portfolios"
+          optionLabel="label"
+          optionValue="value"
+          [(ngModel)]="filters.portfolio">
+        </p-dropdown>
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label>
+          Product Type
+        </label>
+
+        <p-dropdown
+          [options]="productTypes"
+          optionLabel="label"
+          optionValue="value"
+          [(ngModel)]="filters.product_type">
+        </p-dropdown>
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label>
+          Risk Stage
+        </label>
+
+        <p-dropdown
+          [options]="riskStages"
+          optionLabel="label"
+          optionValue="value"
+          [(ngModel)]="filters.risk_stage">
+        </p-dropdown>
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label>
+          Rating
+        </label>
+
+        <input
+          pInputText
+          placeholder="AAA / AA / A / BBB"
+          [(ngModel)]="filters.rating">
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label>
+          Default
+        </label>
+
+        <p-dropdown
+          [options]="defaultOptions"
+          optionLabel="label"
+          optionValue="value"
+          [(ngModel)]="filters.default_flag">
+        </p-dropdown>
+
+      </div>
+
+
+      <div class="filter-field">
+
+        <label>
+          Data Source
+        </label>
+
+        <p-dropdown
+          [options]="dataSources"
+          optionLabel="label"
+          optionValue="value"
+          [(ngModel)]="filters.data_source">
+        </p-dropdown>
+
+      </div>
+
+    </div>
+
+
+    <div class="filter-actions">
+
+      <button
+        pButton
+        label="Search"
+        icon="pi pi-search"
+        (click)="search()"
+        [loading]="loading">
+      </button>
+
+
+      <button
+        pButton
+        label="Clear Filters"
+        icon="pi pi-filter-slash"
+        class="p-button-secondary"
+        (click)="clearFilters()">
+      </button>
+
+    </div>
+
   </p-card>
-  
+
+
+  <!-- RESULTS -->
+
+  <p-card class="results-card">
+
+    <div class="results-header">
+
+      <div>
+
+        <h2>
+          Risk Exposures
+        </h2>
+
+        <span>
+          {{ records.length }} records found
+        </span>
+
+      </div>
+
+
+      <button
+        pButton
+        label="Delete Selected"
+        icon="pi pi-trash"
+        class="p-button-danger"
+        [disabled]="selectedRecords.length === 0"
+        (click)="deleteSelected()">
+      </button>
+
+    </div>
+
+
+    <p-table
+      [value]="records"
+      [(selection)]="selectedRecords"
+      dataKey="id"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10,25,50]"
+      [scrollable]="true"
+      scrollHeight="550px"
+      [loading]="loading">
+
+
+      <ng-template
+        pTemplate="header">
+
+        <tr>
+
+          <th>
+            <p-tableHeaderCheckbox />
+          </th>
+
+          <th>ID</th>
+          <th>Date</th>
+          <th>Entity</th>
+          <th>Name</th>
+          <th>Country</th>
+          <th>Portfolio</th>
+          <th>Product</th>
+          <th>Exposure</th>
+          <th>EAD</th>
+          <th>PD</th>
+          <th>LGD</th>
+          <th>Stage</th>
+          <th>Rating</th>
+          <th>Default</th>
+          <th>Source</th>
+
+        </tr>
+
+      </ng-template>
+
+
+      <ng-template
+        pTemplate="body"
+        let-record>
+
+        <tr>
+
+          <td>
+
+            <p-tableCheckbox
+              [value]="record" />
+
+          </td>
+
+          <td>
+            {{ record.id }}
+          </td>
+
+          <td>
+            {{ record.reporting_date | date:'dd/MM/yyyy' }}
+          </td>
+
+          <td>
+            {{ record.entity_id }}
+          </td>
+
+          <td>
+            {{ record.entity_name }}
+          </td>
+
+          <td>
+            {{ record.country }}
+          </td>
+
+          <td>
+            {{ record.portfolio }}
+          </td>
+
+          <td>
+            {{ record.product_type }}
+          </td>
+
+          <td>
+            {{ record.exposure_amount | number:'1.2-2' }}
+          </td>
+
+          <td>
+            {{ record.ead_amount | number:'1.2-2' }}
+          </td>
+
+          <td>
+            {{ record.pd }}
+          </td>
+
+          <td>
+            {{ record.lgd }}
+          </td>
+
+          <td>
+            {{ record.risk_stage }}
+          </td>
+
+          <td>
+            {{ record.rating }}
+          </td>
+
+          <td>
+            {{ record.default_flag ? 'YES' : 'NO' }}
+          </td>
+
+          <td>
+            {{ record.data_source }}
+          </td>
+
+        </tr>
+
+      </ng-template>
+
+
+      <ng-template
+        pTemplate="emptymessage">
+
+        <tr>
+
+          <td
+            colspan="16"
+            class="empty-message">
+
+            No records found.
+
+          </td>
+
+        </tr>
+
+      </ng-template>
+
+    </p-table>
+
+  </p-card>
+
+</div>
+
+
+<p-confirmDialog />
+
+<p-toast />

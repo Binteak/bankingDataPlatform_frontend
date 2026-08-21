@@ -1,0 +1,198 @@
+<div class="data-quality-container">
+
+
+  <!-- HEADER -->
+
+  <div class="page-header">
+
+    <div>
+
+      <h1>
+        Data Quality
+      </h1>
+
+      <p>
+        Validate the integrity and consistency of risk exposure data.
+      </p>
+
+    </div>
+
+
+    <button
+      pButton
+      label="Run Data Quality Checks"
+      icon="pi pi-check-circle"
+      [loading]="running"
+      (click)="runChecks()">
+    </button>
+
+  </div>
+
+
+  <p-divider></p-divider>
+
+
+  <!-- SUMMARY -->
+
+  <p-card>
+
+    <div class="quality-summary">
+
+      <div>
+
+        <strong>
+          {{ results.length }}
+        </strong>
+
+        <span>
+          Checks available
+        </span>
+
+      </div>
+
+    </div>
+
+  </p-card>
+
+
+  <!-- RESULTS -->
+
+  <p-card class="results-card">
+
+    <div class="results-header">
+
+      <div>
+
+        <h2>
+          Quality Checks
+        </h2>
+
+        <span>
+          Latest data quality execution results
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <p-table
+      [value]="results"
+      [loading]="loading"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10,25,50]"
+      styleClass="p-datatable-sm">
+
+
+      <ng-template
+        pTemplate="header">
+
+        <tr>
+
+          <th>
+            Check
+          </th>
+
+          <th>
+            Description
+          </th>
+
+          <th>
+            Status
+          </th>
+
+          <th>
+            Records Checked
+          </th>
+
+          <th>
+            Records Failed
+          </th>
+
+          <th>
+            Execution Date
+          </th>
+
+          <th>
+            Details
+          </th>
+
+        </tr>
+
+      </ng-template>
+
+
+      <ng-template
+        pTemplate="body"
+        let-result>
+
+        <tr>
+
+          <td>
+            <strong>
+              {{ result.check_name }}
+            </strong>
+          </td>
+
+          <td>
+            {{ result.check_description }}
+          </td>
+
+          <td>
+
+            <p-tag
+              [value]="result.status"
+              [severity]="
+                result.status === 'PASSED'
+                  ? 'success'
+                  : 'danger'
+              ">
+            </p-tag>
+
+          </td>
+
+          <td>
+            {{ result.records_checked }}
+          </td>
+
+          <td>
+            {{ result.records_failed }}
+          </td>
+
+          <td>
+            {{ result.execution_date | date:'dd/MM/yyyy HH:mm' }}
+          </td>
+
+          <td>
+            {{ result.details }}
+          </td>
+
+        </tr>
+
+      </ng-template>
+
+
+      <ng-template
+        pTemplate="emptymessage">
+
+        <tr>
+
+          <td
+            colspan="7"
+            class="empty-message">
+
+            No data quality results available.
+
+          </td>
+
+        </tr>
+
+      </ng-template>
+
+    </p-table>
+
+  </p-card>
+
+
+</div>

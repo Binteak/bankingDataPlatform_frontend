@@ -1,0 +1,228 @@
+<div class="grid">
+    <div class="col">
+        <div class="card-style pv-header-card">
+           <div class="header-flex" style="display:flex; flex-direction: row; align-items: flex-sart;">
+              <div class="header-main-fields" style="display:flex; flex-direction: row; gap: 32px; flex:1;">
+                    <div class="header-field">
+                        <label class="pv-label">Purpose:</label>
+                        <div>
+                            <div *ngFor="let purpose of purposes">
+                                <p-checkbox
+                                  [(ngModel)]="purpose.selected"
+                                  [binary]="true"
+                                    [label]="purpose.purpose"
+                                    [disabled]="purpose.disabled"
+                                    (onChange)="onPurposeSwitchChange(purpose)">
+                                </p-checkbox>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-field" *ngIf="showValueDate">
+                        <label class="pv-label">Value Date:</label>
+                        <div>
+                                <p-dropdown
+                                    [options]="valueDates"
+                                    [(ngModel)]="selectedValueDate"
+                                    optionLabel="date"
+                                    placeholder="Select a Date"
+                                    (onChange)="onValueDateChange()">
+                                </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="header-field" *ngIf="selectedPurpose==='Market Risk Stress' && showScenario">
+                        <label class="pv-label">Scenario:</label>
+                        <div>
+                          
+                                <p-dropdown
+                                    [options]="scenarios"
+                                    [(ngModel)]="selectedScenario"
+                                    optionLabel="scenario"
+                                    placeholder="Select a Scenario"
+                                    (onChange)="onScenarioChange()">
+                                </p-dropdown>
+                          
+                        </div>
+                    </div>
+                    <ng-container *ngIf="selectedPurpose==='CCR Stress'">
+                        <div class="header-field" *ngIf="showReportDate">
+                            <label class="pv-label">Report Date:</label>
+                            <input type="text" [(ngModel)]="reportDate" class="p-inputtext" disabled/>
+                        </div>
+                        <div class="header-field" *ngIf="showCCRLabel">
+                            <label class="pv-label">CCR Label</label>
+                            <p-dropdown
+                                [options]="ccrLabels"
+                                [(ngModel)]="selectedCCRLabel"
+                                optionLabel="label"
+                                placeholder="Select a CCR Label"
+                                (onChange)="onCCRLabelChange();">
+                            </p-dropdown>
+                        </div>
+                    </ng-container>
+                    <div class="header-field" *ngIf="showCurrency">
+                        <label class="pv-label">Currency:</label>
+                        <div>
+                                <p-dropdown
+                                    [options]="currencies"
+                                    [(ngModel)]="selectedCurrency"
+                                    optionLabel="currency"
+                                    placeholder="Select a Currency"
+                                    (onChange)="onCurrencyChange()">
+                                </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="header-field" *ngIf="showFxRates">
+                        <label class="pv-label">FX Rates:</label>
+                        <div>
+                                <p-dropdown
+                                    [options]="fxRates"
+                                    [(ngModel)]="selectedFxRate"
+                                    optionLabel="rate"
+                                    placeholder="Select FX Rates"
+                                    
+                                    ><!-- (onChange)="onFxRateChange()" -->
+                                </p-dropdown>
+                        </div>
+                    </div>
+                </div>
+
+
+                    <!--Area derecha switches y botón-->
+                    <div *ngIf="showFxRates && selectedFxRate" style="display:flex;flex-direction:row;align-items:flex-start;min-width:320px;height:100%;">
+                        <div style="display:flex;flex-direction:column;gap:0px;padding-right:32px;">
+                            <div style="display:flex;align-items:center;gap:4px;">
+                                <p-inputSwitch [(ngModel)]="includeIntragroupTrades" [style]="{'transform':'scale(0.8)'}"></p-inputSwitch>
+                                <span>Include intragroup trades</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:4px;">
+                                <p-inputSwitch [(ngModel)]="includeInternalTrades" [style]="{'transform':'scale(0.8)'}"></p-inputSwitch>
+                                <span>Include internal trades</span>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:4px;">
+                                <p-inputSwitch [(ngModel)]="includePNLCash" [style]="{'transform':'scale(0.8)'}"></p-inputSwitch>
+                                <span>Include PNL Cash</span>
+                            </div>
+                        </div>
+                        <div style="display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-end;height:100%">
+                            <div style="display:flex;align-items:center;gap:4px;padding-bottom:24px;">
+                            <p-inputSwitch [(ngModel)]="selectAll" (onChange)="onSelectAllChange($event)" [style]="{'transform':'scale(0.8)'}"></p-inputSwitch>
+                            <span>Select All</span>
+                            </div>
+                            <p-button pRipple label="Launch Process" class="p-button-danger" severity="danger" (onClick)="launchProcess()" [disabled]=""></p-button>
+                        </div>
+                    </div>
+              </div>
+        </div>
+    </div>
+</div>
+
+<!--Nuevos Modulos-->
+<div *ngIf="showFxRates && selectedFxRate" class="modules-row" style="margin-top:32px;">
+    <div class="module-card">
+        <div class="module-header">Sensitivities</div>
+        <div class="module-body" style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+            <p-inputSwitch [ngModel]="sensitivitiesAll" (onChange)="onSensitivitiesAllChange($event)" [style]="{'transform':'scale(0.8)'}"></p-inputSwitch>
+            <span>All</span>
+        </div>
+        <br>
+        <div class="module-body" style="max-height:285px;overflow-y:auto;margin-top:8px;margin-top:8px;">
+            <div *ngFor="let sensitivity of sensitivities">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <p-inputSwitch [(ngModel)]="sensitivity.selected" [style]="{'transform':'scale(0.8)'}" (onChange)="onSensitivityChange()"></p-inputSwitch>
+                    <span>{{sensitivity.name}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="module-card">
+        <div class="module-header" style="background: #ec0000; color: white; ">MR Stress Filtering</div>
+        <div class="module-body" style="display:flex; flex-direction:row;gap:32px;margin-top:8px;">
+            <div style="flex: 1;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <label>Books</label>
+                    <p-inputSwitch [(ngModel)]="booksAll" (onChange)="onBooksAllChange($event)" [style]="{'transform':'scale(0.8)'}"></p-inputSwitch>
+                    <span>All</span>
+                </div>
+                <br>
+                <div style="max-height:285px;overflow-y:auto;margin-top:8px;margin-bottom:16px;">
+                    <div *ngFor="let book of books">
+                        <div style="display:flex;align-items:center;gap:8px;">
+                            <p-inputSwitch [(ngModel)]="book.selected" [style]="{'transform':'scale(0.8)'}" (onChange)="onBookChange()"></p-inputSwitch>
+                            <span>{{book.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <label>Products</label>
+                    <p-inputSwitch [(ngModel)]="productsAll" (onChange)="onProductsAllChange($event)" [style]="{'transform':'scale(0.8)'}"></p-inputSwitch>
+                    <span>All</span>
+                </div>
+                <br>
+                <div style="max-height:285px;overflow-y:auto;margin-top:8px;margin-bottom:16px;">
+                    <ng-container *ngFor="let product of products">
+                        <div *ngIf="product.isGroup">
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <p-inputSwitch [(ngModel)]="product.selected" [style]="{'transform':'scale(0.8)'}" (onChange)="onProductChange()"></p-inputSwitch>
+                                <span>{{product.name}}</span>
+                            </div>
+                            <div *ngFor="let sub of product.items" style="display:flex;align-items:center;gap:8px;margin-left:32px;">
+                                <p-inputSwitch [(ngModel)]="sub.selected" [style]="{'transform':'scale(0.8)'}" (onChange)="onSubProductChange()"></p-inputSwitch>
+                                <span [style.color]="sub.selected ? '#ec0000' : ''">{{sub.name}}</span>
+                            </div>
+                        </div>
+                        <div *ngIf="!product.isGroup" style="display:flex;align-items:center;gap:8px;">
+                            <p-inputSwitch [(ngModel)]="product.selected" [style]="{'transform':'scale(0.8)'}" (onChange)="onProductChange()"></p-inputSwitch>
+                            <span>{{product.name}}</span>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="module-card">
+        <div class="module-header" style="cursor:pointer;border-top:1px solid #dfdfdf;margin-bottom:0;"
+        (click)="showIntermediateResults = true;showMoreInfo=false;">
+            <span>Intermediate Results</span>
+            <span style="font-weight:bold;font-size:18px;">&nbsp;&nbsp;+</span>
+        </div>
+        <div *ngIf="showIntermediateResults" style="max-height:285;padding:16px 16px 0 16px;">
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <p-inputSwitch [(ngModel)]="intermediateSwitches.shockLevel"></p-inputSwitch>
+                    <span>Shock Level</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <p-inputSwitch [(ngModel)]="intermediateSwitches.riskFactorLevel"></p-inputSwitch>
+                    <span>Risk Factor Level</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <p-inputSwitch [(ngModel)]="intermediateSwitches.underlyingLevel"></p-inputSwitch>
+                    <span>Underlying Level</span>]
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <p-inputSwitch [(ngModel)]="intermediateSwitches.sensitivityLevel"></p-inputSwitch>
+                    <span>Sensitivity Level</span>
+                </div>
+            </div>
+        </div>
+        <div class="module-header" style="cursor:pointer;border-bottom:1px solid #dfdfdf;margin-bottom:0;" (click)="showIntermediateResults = false;showMoreInfo=true;">
+            <span>More Info</span>
+        </div>
+        <div *ngIf="showMoreInfo" style="max-height:385px;padding:16px;">
+            <div style="margin-top:8px;font-size:0.95em;">
+                <div>
+                    Previously launched with this configuration:
+                </div> 
+                <div *ngFor="let result of intermediateResults" style="margin-bottom:8px;">
+                    <span>{{result.date}}</span>
+                    <span style="color:#1976d2;cursor:pointer;">ID:{{result.id}}</span>
+                    <span>Process launched by user: {{result.user}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
