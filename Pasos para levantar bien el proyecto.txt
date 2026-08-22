@@ -19,3 +19,14 @@ npm install (Comrpobará si faltan si ya hemos instalado otras antes)
 Lanzar
 npx ng serve --open -> Si hay problemas de incompatibilidades o un angular global y queremos seguir usando nuestra versión
 ng serve
+
+
+
+
+TEST--------------------------
+
+ng generate config karma -> Creamos la configuración que Karma necesita para saber qué tests ejecutar, en qué navegador, qué frameworks usar, etc.
+
+Si falla (dependencias):
+npm install
+npm install karma karma-jasmine karma-chrome-launcher karma-coverage jasmine-core @types/jasmine @angular-devkit/build-angular --save-dev

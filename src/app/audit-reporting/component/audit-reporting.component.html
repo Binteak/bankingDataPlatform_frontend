@@ -1,18 +1,25 @@
 <div class="reporting-container">
 
 
+  <!-- ===================================================== -->
   <!-- HEADER -->
+  <!-- ===================================================== -->
 
   <div class="page-header">
 
     <div>
 
+      <div class="eyebrow">
+        RISK MANAGEMENT
+      </div>
+
       <h1>
-        Reporting
+        Audit Reporting
       </h1>
 
       <p>
-        Generate and review financial risk reporting metrics.
+        Generate controlled risk reporting from the available
+        validated exposure universe.
       </p>
 
     </div>
@@ -23,63 +30,492 @@
   <p-divider></p-divider>
 
 
-  <!-- GENERATE -->
+  <!-- ===================================================== -->
+  <!-- CONFIGURATION -->
+  <!-- ===================================================== -->
 
-  <p-card>
+  <p-card class="configuration-card">
 
-    <div class="generate-section">
+    <div class="section-header">
 
       <div>
 
         <h2>
-          Generate Report
+          Report Configuration
         </h2>
 
         <p>
-          Select a reporting date and generate the latest risk metrics.
+          Select an available reporting universe and calculate
+          the corresponding risk metrics.
         </p>
 
       </div>
 
+    </div>
 
-      <div class="generate-controls">
+
+    <div class="filter-grid">
+
+
+      <!-- REPORT NAME -->
+
+      <div class="field">
+
+        <label>
+          Report name
+        </label>
 
         <input
           pInputText
-          type="date"
-          [(ngModel)]="reportingDate">
+          type="text"
+          [(ngModel)]="reportName"
+          placeholder="e.g. June 2026 Colombia Risk Report">
 
-
-        <button
-          pButton
-          label="Generate Report"
-          icon="pi pi-chart-bar"
-          [loading]="generating"
-          (click)="generateReport()">
-        </button>
+        <small>
+          Internal name assigned to this report.
+        </small>
 
       </div>
+
+
+      <!-- REPORTING DATE -->
+
+      <div class="field">
+
+        <label>
+          Reporting date
+        </label>
+
+        <p-dropdown
+          [options]="reportingDates"
+          [(ngModel)]="reportingDate"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select reporting date"
+          [showClear]="true"
+          (onChange)="onFilterChange()">
+        </p-dropdown>
+
+      </div>
+
+
+      <!-- COUNTRY -->
+
+      <div class="field">
+
+        <label>
+          Country
+        </label>
+
+        <p-dropdown
+          [options]="countries"
+          [(ngModel)]="country"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select country"
+          [showClear]="true"
+          (onChange)="onFilterChange()">
+        </p-dropdown>
+
+      </div>
+
+
+      <!-- PORTFOLIO -->
+
+      <div class="field">
+
+        <label>
+          Portfolio
+        </label>
+
+        <p-dropdown
+          [options]="portfolios"
+          [(ngModel)]="portfolio"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="All portfolios"
+          [showClear]="true"
+          (onChange)="onFilterChange()">
+        </p-dropdown>
+
+      </div>
+
+
+      <!-- PRODUCT -->
+
+      <div class="field">
+
+        <label>
+          Product type
+        </label>
+
+        <p-dropdown
+          [options]="productTypes"
+          [(ngModel)]="productType"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="All products"
+          [showClear]="true"
+          (onChange)="onFilterChange()">
+        </p-dropdown>
+
+      </div>
+
+
+      <!-- RISK STAGE -->
+
+      <div class="field">
+
+        <label>
+          Risk stage
+        </label>
+
+        <p-dropdown
+          [options]="riskStages"
+          [(ngModel)]="riskStage"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="All stages"
+          [showClear]="true"
+          (onChange)="onFilterChange()">
+        </p-dropdown>
+
+      </div>
+
+
+      <!-- RATING -->
+
+      <div class="field">
+
+        <label>
+          Rating
+        </label>
+
+        <p-dropdown
+          [options]="ratings"
+          [(ngModel)]="rating"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="All ratings"
+          [showClear]="true"
+          (onChange)="onFilterChange()">
+        </p-dropdown>
+
+      </div>
+
+
+      <!-- DEFAULT -->
+
+      <div class="field">
+
+        <label>
+          Default status
+        </label>
+
+        <p-dropdown
+          [options]="defaultStatuses"
+          [(ngModel)]="defaultStatus"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="All exposures"
+          [showClear]="true"
+          (onChange)="onFilterChange()">
+        </p-dropdown>
+
+      </div>
+
+    </div>
+
+
+    <!-- =================================================== -->
+    <!-- ACTIONS -->
+    <!-- =================================================== -->
+
+    <div class="configuration-actions">
+
+
+      <button
+        pButton
+        label="Reset"
+        icon="pi pi-refresh"
+        class="p-button-text"
+        (click)="resetFilters()">
+      </button>
+
+
+      <button
+        pButton
+        label="Export Filtered Data"
+        icon="pi pi-download"
+        class="p-button-secondary"
+        [loading]="exportingData"
+        [disabled]="!reportingDate || !country"
+        (click)="exportFilteredData()">
+      </button>
+
+
+      <button
+        pButton
+        label="Calculate Metrics"
+        icon="pi pi-chart-bar"
+        [loading]="generating"
+        [disabled]="
+          !reportName ||
+          !reportingDate ||
+          !country
+        "
+        (click)="calculateMetrics()">
+      </button>
+
+
+      <button
+        pButton
+        label="Generate PDF"
+        icon="pi pi-file-pdf"
+        [loading]="generatingPdf"
+        [disabled]="!selectedMetrics"
+        class="p-button-secondary"
+        (click)="generatePDF()">
+      </button>
 
     </div>
 
   </p-card>
 
 
-  <!-- RESULTS -->
+  <!-- ===================================================== -->
+  <!-- CALCULATION OUTPUT -->
+  <!-- ===================================================== -->
 
-  <p-card class="results-card">
+  <div
+    class="metrics-section"
+    *ngIf="selectedMetrics">
 
-    <div class="results-header">
+
+    <div class="section-header">
 
       <div>
 
+        <div class="eyebrow">
+          CALCULATION OUTPUT
+        </div>
+
         <h2>
-          Reporting Results
+          {{ selectedMetrics.reportName }}
         </h2>
 
+        <p>
+
+          {{ selectedMetrics.country }}
+
+          ·
+
+          {{ selectedMetrics.reportingDate }}
+
+          ·
+
+          {{ selectedMetrics.recordsAnalysed | number }}
+
+          records analysed
+
+        </p>
+
+      </div>
+
+
+      <div class="quality-status">
+
         <span>
-          Calculated risk metrics
+          Data Quality
         </span>
+
+        <p-tag
+          [value]="getQualityLabel()"
+          [severity]="getQualitySeverity()">
+        </p-tag>
+
+      </div>
+
+    </div>
+
+
+    <!-- WARNING -->
+
+    <div
+      class="quality-warning"
+      *ngIf="
+        selectedMetrics.qualityStatus === 'FAILED'
+      ">
+
+      <i class="pi pi-exclamation-triangle"></i>
+
+      <div>
+
+        <strong>
+          Reporting calculated with failed Data Quality controls
+        </strong>
+
+        <p>
+          The metrics are available for analysis, but this report
+          is not considered validated.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- METRICS -->
+
+    <div class="metric-grid">
+
+
+      <div class="metric-card">
+
+        <span>
+          Exposure Count
+        </span>
+
+        <strong>
+          {{
+            selectedMetrics.metrics.exposureCount
+            | number
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="metric-card">
+
+        <span>
+          Total Exposure
+        </span>
+
+        <strong>
+          {{
+            formatCurrency(
+              selectedMetrics.metrics.totalExposure
+            )
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="metric-card">
+
+        <span>
+          Total EAD
+        </span>
+
+        <strong>
+          {{
+            formatCurrency(
+              selectedMetrics.metrics.totalEad
+            )
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="metric-card">
+
+        <span>
+          Average PD
+        </span>
+
+        <strong>
+          {{
+            formatPercentage(
+              selectedMetrics.metrics.averagePd
+            )
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="metric-card">
+
+        <span>
+          Average LGD
+        </span>
+
+        <strong>
+          {{
+            formatPercentage(
+              selectedMetrics.metrics.averageLgd
+            )
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="metric-card">
+
+        <span>
+          Default Rate
+        </span>
+
+        <strong>
+          {{
+            formatPercentage(
+              selectedMetrics.metrics.defaultRate
+            )
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="metric-card highlight">
+
+        <span>
+          Expected Loss
+        </span>
+
+        <strong>
+          {{
+            formatCurrency(
+              selectedMetrics.metrics.expectedLoss
+            )
+          }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- HISTORY -->
+  <!-- ===================================================== -->
+
+  <p-card
+    class="results-card"
+    *ngIf="reports.length > 0">
+
+
+    <div class="section-header">
+
+      <div>
+
+        <div class="eyebrow">
+          REPORTING HISTORY
+        </div>
+
+        <h2>
+          Calculated Metrics
+        </h2>
+
+        <p>
+          Persisted reporting calculations and metric definitions.
+        </p>
 
       </div>
 
@@ -92,16 +528,23 @@
       [paginator]="true"
       [rows]="10"
       [rowsPerPageOptions]="[10,25,50]"
-      styleClass="p-datatable-sm">
+      styleClass="p-datatable-sm corporate-table">
 
 
-      <ng-template
-        pTemplate="header">
+      <ng-template pTemplate="header">
 
         <tr>
 
           <th>
-            Reporting Date
+            Report
+          </th>
+
+          <th>
+            Date
+          </th>
+
+          <th>
+            Country
           </th>
 
           <th>
@@ -113,11 +556,11 @@
           </th>
 
           <th>
-            Portfolio
+            Records
           </th>
 
           <th>
-            Execution Date
+            Execution
           </th>
 
           <th>
@@ -136,31 +579,85 @@
         <tr>
 
           <td>
-            {{ report.reporting_date | date:'dd/MM/yyyy' }}
-          </td>
-
-          <td>
 
             <strong>
-              {{ report.metric_name }}
+              {{ report.report_name }}
             </strong>
 
           </td>
 
-          <td>
-            {{ report.metric_value }}
-          </td>
 
           <td>
-            {{ report.portfolio }}
+
+            {{
+              report.reporting_date
+              | date:'dd/MM/yyyy'
+            }}
+
           </td>
 
-          <td>
-            {{ report.execution_date | date:'dd/MM/yyyy HH:mm' }}
-          </td>
 
           <td>
-            {{ report.details }}
+
+            {{ countryLabel(report.country) }}
+
+          </td>
+
+
+          <td>
+
+            {{ metricLabel(
+              report.metric_name
+            ) }}
+
+          </td>
+
+
+          <td>
+
+            <strong>
+
+              {{
+                metricDisplayValue(
+                  report
+                )
+              }}
+
+            </strong>
+
+          </td>
+
+
+          <td>
+
+            {{
+              report.records_analysed
+              | number
+            }}
+
+          </td>
+
+
+          <td>
+
+            {{
+              report.execution_date
+              | date:'dd/MM/yyyy HH:mm'
+            }}
+
+          </td>
+
+
+          <td>
+
+            <button
+              pButton
+              icon="pi pi-info-circle"
+              class="p-button-text p-button-sm"
+              pTooltip="View metric definition"
+              (click)="showMetricDetails(report)">
+            </button>
+
           </td>
 
         </tr>
@@ -168,16 +665,15 @@
       </ng-template>
 
 
-      <ng-template
-        pTemplate="emptymessage">
+      <ng-template pTemplate="emptymessage">
 
         <tr>
 
           <td
-            colspan="6"
+            colspan="8"
             class="empty-message">
 
-            No reporting results available.
+            No calculated reporting metrics available.
 
           </td>
 
@@ -188,6 +684,134 @@
     </p-table>
 
   </p-card>
+
+
+  <!-- ===================================================== -->
+  <!-- DETAILS DIALOG -->
+  <!-- ===================================================== -->
+
+  <p-dialog
+    [(visible)]="showDetailsDialog"
+    [modal]="true"
+    [style]="{ width: '550px' }"
+    header="Metric Definition">
+
+
+    <div
+      class="details-dialog"
+      *ngIf="selectedMetricDetails">
+
+
+      <div class="detail-row">
+
+        <span>
+          Metric
+        </span>
+
+        <strong>
+          {{
+            metricLabel(
+              selectedMetricDetails.metric_name
+            )
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>
+          Calculated value
+        </span>
+
+        <strong>
+          {{
+            metricDisplayValue(
+              selectedMetricDetails
+            )
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="detail-row">
+
+        <span>
+          Reporting date
+        </span>
+
+        <strong>
+          {{
+            selectedMetricDetails.reporting_date
+            | date:'dd/MM/yyyy'
+          }}
+        </strong>
+
+      </div>
+
+
+      <div class="detail-definition">
+
+        <span>
+          Definition
+        </span>
+
+        <p>
+          {{
+            selectedMetricDetails.details
+          }}
+        </p>
+
+      </div>
+
+
+      <div class="detail-universe">
+
+        <span>
+          Reporting universe
+        </span>
+
+        <p>
+
+          Country:
+          {{ countryLabel(
+            selectedMetricDetails.country
+          ) }}
+
+          ·
+
+          Portfolio:
+          {{ selectedMetricDetails.portfolio }}
+
+          ·
+
+          Product:
+          {{ selectedMetricDetails.product_type }}
+
+          ·
+
+          Risk Stage:
+          {{ selectedMetricDetails.risk_stage }}
+
+          ·
+
+          Rating:
+          {{ selectedMetricDetails.rating }}
+
+          ·
+
+          Default:
+          {{ selectedMetricDetails.default_status }}
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </p-dialog>
 
 
 </div>
