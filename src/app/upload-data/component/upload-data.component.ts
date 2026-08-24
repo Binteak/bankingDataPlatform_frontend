@@ -37,6 +37,8 @@ export class UploadDataComponent {
 
   uploading = false;
 
+  isDragging = false;
+
 
   // ==========================================================
   // RESULT
@@ -72,7 +74,7 @@ export class UploadDataComponent {
 
 
   // ==========================================================
-  // FILE SELECTED
+  // FILE SELECTED FROM PRIME NG
   // ==========================================================
 
   onFileSelected(event: any): void {
@@ -83,23 +85,116 @@ export class UploadDataComponent {
       return;
     }
 
+    this.handleSelectedFile(file);
+  }
+
+
+  // ==========================================================
+  // DRAG OVER
+  // ==========================================================
+
+  onDragOverFile(event: DragEvent): void {
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.isDragging = true;
+  }
+
+
+  // ==========================================================
+  // DRAG LEAVE
+  // ==========================================================
+
+  onDragLeaveFile(event: DragEvent): void {
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.isDragging = false;
+  }
+
+
+  // ==========================================================
+  // DROP FILE
+  // ==========================================================
+
+  onDropFile(event: DragEvent): void {
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.isDragging = false;
+
+    const file = event.dataTransfer?.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    this.handleSelectedFile(file);
+  }
+
+
+  // ==========================================================
+  // HANDLE SELECTED FILE
+  // ==========================================================
+
+  private handleSelectedFile(file: File): void {
+
+    const fileName = file.name.toLowerCase();
+
+    const validFile =
+      fileName.endsWith('.csv') ||
+      fileName.endsWith('.xlsx');
+
+    // --------------------------------------------------------
+    // INVALID FILE
+    // --------------------------------------------------------
+
+    if (!validFile) {
+
+      this.selectedFile = null;
+
+      this.uploadedFileName = '';
+
+      this.uploadError = true;
+
+      this.errorMessage =
+        'Please select a CSV or Excel file.';
+
+      return;
+    }
+
+
+    // --------------------------------------------------------
+    // STORE FILE
+    // --------------------------------------------------------
+
     this.selectedFile = file;
 
     this.uploadedFileName = file.name;
 
     this.uploadSuccess = false;
+
     this.uploadError = false;
 
     this.successMessage = '';
+
     this.errorMessage = '';
 
+    this.recordsProcessed = 0;
+
     this.previewData = [];
+
     this.previewColumns = [];
 
 
-    // Solo hacemos preview automático para CSV
+    // --------------------------------------------------------
+    // CSV PREVIEW
+    // --------------------------------------------------------
 
-    if (file.name.toLowerCase().endsWith('.csv')) {
+    if (fileName.endsWith('.csv')) {
 
       this.readCSVPreview(file);
 
@@ -122,11 +217,16 @@ export class UploadDataComponent {
 
       const lines = text
         .split(/\r?\n/)
-        .filter((line: string) => line.trim() !== '');
+        .filter(
+          (line: string) =>
+            line.trim() !== ''
+        );
+
 
       if (lines.length === 0) {
 
         this.previewData = [];
+
         this.previewColumns = [];
 
         return;
@@ -154,14 +254,19 @@ export class UploadDataComponent {
 
           const row: any = {};
 
+
           this.previewColumns.forEach(
-            (column: string, index: number) => {
+            (
+              column: string,
+              index: number
+            ) => {
 
               row[column] =
                 values[index] ?? '';
 
             }
           );
+
 
           return row;
 
@@ -198,7 +303,11 @@ export class UploadDataComponent {
     let insideQuotes = false;
 
 
-    for (let i = 0; i < line.length; i++) {
+    for (
+      let i = 0;
+      i < line.length;
+      i++
+    ) {
 
       const char = line[i];
 
@@ -247,6 +356,20 @@ export class UploadDataComponent {
 
   processFile(): void {
 
+    console.log(
+      'PROCESS FILE CLICKED'
+    );
+
+    console.log(
+      'Selected file:',
+      this.selectedFile
+    );
+
+
+    // --------------------------------------------------------
+    // NO FILE
+    // --------------------------------------------------------
+
     if (!this.selectedFile) {
 
       this.uploadError = true;
@@ -255,18 +378,27 @@ export class UploadDataComponent {
         'Please select a file first.';
 
       return;
-
     }
 
+
+    // --------------------------------------------------------
+    // START UPLOAD
+    // --------------------------------------------------------
 
     this.uploading = true;
 
     this.uploadSuccess = false;
+
     this.uploadError = false;
 
     this.successMessage = '';
+
     this.errorMessage = '';
 
+
+    // --------------------------------------------------------
+    // SEND FILE TO BACKEND
+    // --------------------------------------------------------
 
     this.api
       .uploadData(this.selectedFile)
@@ -361,6 +493,8 @@ export class UploadDataComponent {
     this.recordsProcessed = 0;
 
     this.uploading = false;
+
+    this.isDragging = false;
 
   }
 

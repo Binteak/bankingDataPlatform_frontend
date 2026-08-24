@@ -7,41 +7,37 @@
 
   <div class="page-header">
 
-    <div>
+     <div>
 
-      <h1>
-        Data Explorer
-      </h1>
+  <div class="eyebrow">
+    DATA ANALYSIS
+  </div>
 
-      <p>
-        Explore and review financial risk exposure data.
-      </p>
+  <h1>
+    Data Explorer
+  </h1>
 
-    </div>
+  <p>
+    Explore and review financial risk exposure data.
+  </p>
+
+</div>
 
 
     <div class="header-actions">
 
       <button
-        pButton
-        type="button"
-        label="Refresh"
-        icon="pi pi-refresh"
-        (click)="refreshData()"
-        [disabled]="loading">
-      </button>
+  pButton
+  type="button"
+  label="Refresh"
+  icon="pi pi-refresh"
+  class="corporate-button"
+  (click)="refreshData()"
+  [disabled]="loading">
+</button>
 
 
-      <button
-        pButton
-        type="button"
-        label="Export CSV"
-        icon="pi pi-download"
-        class="p-button-success"
-        (click)="exportCSV()"
-        [disabled]="!filteredData.length">
-      </button>
-
+     
     </div>
 
   </div>
@@ -352,7 +348,7 @@
   <!-- ===================================================== -->
   <!-- SUMMARY -->
   <!-- ===================================================== -->
-
+<br>
   <div class="summary-grid">
 
 
@@ -502,12 +498,15 @@
 
       <div class="table-actions">
 
+
+
+
         <button
           pButton
           type="button"
           label="Export filtered data"
           icon="pi pi-download"
-          class="p-button-outlined"
+          class="p-button-success"
           (click)="exportCSV()"
           [disabled]="!filteredData.length">
         </button>

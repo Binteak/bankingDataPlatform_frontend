@@ -8,74 +8,64 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { RippleModule } from 'primeng/ripple';
-
-
 import { InputTextModule } from 'primeng/inputtext';
 import { AvatarModule } from 'primeng/avatar';
-
-
-// import { TabsModule } from 'primeng/tabs';
-
-
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [HttpClientModule, CardModule, RouterModule, CommonModule, ButtonModule, AvatarModule, InputTextModule, DialogModule, RippleModule],
+  imports: [
+    HttpClientModule,
+    CardModule,
+    RouterModule,
+    CommonModule,
+    ButtonModule,
+    AvatarModule,
+    InputTextModule,
+    DialogModule,
+    RippleModule
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
 
-  constructor(private dashboardService: DashboardService) { }
+  constructor(
+    private dashboardService: DashboardService,
+    private router: Router
+  ) {}
 
-  selected_execution: boolean = false;
-  selected_management: boolean = false;
-  selected_all: boolean = true;
-  menuItems = ['All', 'Data Management', 'Execution Process'];
-  selected: string = this.menuItems[0];
+  menuItems = [
+    'All',
+    'Data Ingestion',
+    'Data Governance',
+    'Data Analysis',
+    'Risk Reporting'
+  ];
 
-exerciseGroups: any[] = [];
+  selected = 'All';
+
+  exerciseGroups: any[] = [];
 
   ngOnInit(): void {
-    
-
-    // let body = {
-    //   'screenName': 'dashboard',
-    // };
-
-    // this.dashboardService.getHousekeepingExerciseGroup(body).subscribe(
-    //     (res: any) => {
-    //       this.exerciseGroups = JSON.parse(res.data);// Almacena la respuesta en la variable
-    //       console.log('Housekeeping data:', this.exerciseGroups);
-    //     },
-    //     (err: any) => {
-    //       console.error('Error fetching housekeeping data:', err);
-    //     }
-    //   );
-    
-
-
-
   }
 
-  onSelect(item: string) {
+  onSelect(item: string): void {
     this.selected = item;
-    console.log('Seleccionado:', item);
-    // Aquí puedes condicionar lo que quieras según el texto
-    if (item === 'Data Management') {
-      this.selected_execution = false;
-      this.selected_all = false;
-      this.selected_management = true;
-    } else if (item === 'Execution Process') {
-      this.selected_execution = true;
-      this.selected_all = false;
-      this.selected_management = false;
-    } else if (item === 'All') {
-      this.selected_all = true;
-    } else { }
   }
 
+  openModule(route: string): void {
 
+    this.router.navigate([route]).then(() => {
+
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant'
+      });
+
+    });
+
+  }
 
 }

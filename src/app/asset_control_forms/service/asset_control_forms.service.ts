@@ -14,11 +14,11 @@ export class AssetControlFormsService {
 //   apiUrl = 'http://127.0.0.1:8000/api';
 
   getValueDates(body: any) {
-    return this.http.post<any>(`${this.apiUrl}/getValueDates/`, body);
+    return this.http.post<any>(`${this.apiUrl}getValueDates/`, body);
   }
 
   getDataTable(body: any) {
-    return this.http.post<any>(`${this.apiUrl}/getDataTable/`, body);
+    return this.http.post<any>(`${this.apiUrl}getDataTable/`, body);
   }
 
   uploadCSV(file: File, selectedDate: string, scenario: string) {
@@ -27,7 +27,7 @@ export class AssetControlFormsService {
     formData.append('selectedDate', selectedDate);
     formData.append('scenario', scenario);
   
-    return this.http.post<any>(`${this.apiUrl}/uploadCSV/`, formData);
+    return this.http.post<any>(`${this.apiUrl}uploadCSV/`, formData);
   }
 
 }

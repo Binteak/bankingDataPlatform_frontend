@@ -1,7 +1,19 @@
-.main-content {
+/* .main-content {
   padding-top: 30px; 
   background-color: #f0f0f0;
    margin-left: 20px;
    margin-right: 20px;
   
+} */
+
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main-content {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  box-sizing: border-box;
 }

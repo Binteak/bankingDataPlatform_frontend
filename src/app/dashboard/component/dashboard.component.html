@@ -1,153 +1,696 @@
-
-
-<div class="grid"  style="background-color:#ffffff;margin-right:2px;margin-left:2px;">
-  <div class="col-12 md:col-6" >
-
-    <div style="position:relative;width:100%;height:250px;overflow:hiddden;">
-      <img src="assets\images\apaisado_edificio.png" alt="Imagen" style="width:100%;height:100%;object-fit:cover;"/>
-      <div style="position:absolute;top:0;left:0;width:100%;height:100%;background-color:rgba(255,0,0,0);z-index:1;">
-
-      </div>
-    </div>  
-  </div>
-  <div class="col-12 md:col-6">
-    <h1 style="color:#ec0000;padding-right:16px;" align=right>Welcome to CCR Sensitivities</h1>
-    <h4 style="padding-right:16px;" align=right>Manage your Engines and Uploads.</h4>
-    <br>
-    <br>
-    <br>
-    <div class="grid">
-      <div class="col-12 md:col-6" align="right"></div>
-      <div class="col-12 md:col-6" align="right" style="padding-right:24px;"> 
-        <p-button routerLink="/documentation" styleClass="docButton" label="Documentation" icon="pi pi-book" iconPos="right" />
-      </div> 
-    </div>
-   
-
-    
-  </div>
-</div>
-
-<br>
-
-<div class="menu-grid grid" style="padding-left:16px;">
-  <div class="col-12 md:col-6"
-    class="menu-item"
-    [class.selected]="selected === item"
-    *ngFor="let item of menuItems"
-    (click)="onSelect(item)"
-    [class.left-align]="item === 'Frase 2'"
-  >
-    {{ item }}
-  </div>
-  <div class="col-12 md:col-6"></div>
-</div>
-
-
-
-
-<!-- <div class="texto-seleccionado" style="margin-top: 16px;">
-  <h2 align="center" *ngIf="selected === 'All'">All Info showed.</h2>
-  <h2 align="center" *ngIf="selected === 'Data Management'">Este es el texto para la Frase 1.</h2>
-  <h2 align="center" *ngIf="selected === 'Execution Process'">Aquí se muestra el texto para la Frase 2.</h2>
-</div> -->
-
-<br>
-
- <div class="grid cards-container" [class.centered]="selected === 'all'">
-      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_management === true">
-        <a [routerLink]="['/login']" class="simple-card">
-        <div style="height: 150px;">
-          <i class="pi pi-upload card-icon"></i>
-          <h4 style="color:#ec0000;">Supra Risk Data</h4>
-          <p class="card-text">Load Market and CCR Data filtered fdfd.</p>
-        </div>
-        </a>
-      </div>
-      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_management === true">
-        <a [routerLink]="['/login']" class="simple-card">
-        <div style="height: 150px;">
-          <i class="pi pi-database card-icon"></i>
-          <h4 style="color:#ec0000;">Asset Control Forms</h4>
-          <p class="card-text" align=left>Creation of value date/scenario and upload forms.</p>
-        </div>
-        </a>
-      </div>
-      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_management === true">
-        <a [routerLink]="['/login']" class="simple-card">
-        <div style="height: 150px;">
-          <i class="pi pi-desktop card-icon"></i>
-          <h4 style="color:#ec0000;" >Monitoring</h4>
-          <p class="card-text">dfdfsdfdd</p>
-        </div>
-        </a>
-      </div>
-      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_management === true">
-        <a [routerLink]="['/login']" class="simple-card">
-        <div style="height: 150px;">
-          <i class="pi pi-cog card-icon"></i>
-          <h4 style="color:#ec0000;">Launch Process</h4>
-          <p class="card-text">dsfdsfsfd</p>
-        </div>
-        </a>
-      </div>
-      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_execution === true">
-        <a [routerLink]="['/login']" class="simple-card">
-        <div style="height: 150px;">
-        <i class="pi pi-sitemap card-icon"></i>
-          <h4 style="color:#ec0000;">Process Visualization</h4>
-          <p class="card-text">dsfdsssfsdfsf</p>
-        </div>
-        </a>
-      </div>
-      <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_execution === true">
-         <a [routerLink]="['/login']" class="simple-card">
-        <div style="height: 150px;">
-          <i class="pi pi-chart-bar card-icon"></i>
-          <h4 style="color:#ec0000;">Intermediate Results</h4>
-          <p class="card-text">dsfdfsdfdsfs</p>
-        </div>
-        </a>
-      </div>
-       <div class="col-6 md:col-4 lg:col-2" *ngIf="selected_all === true || selected_execution === true">
-         <a [routerLink]="['/login']" class="simple-card">
-        <div style="height: 150px;">
-          <i class="pi pi-chart-bar card-icon"></i>
-          <h4 style="color:#ec0000;">View Results</h4>
-          <p class="card-text">dsfdfsdfdsfs</p>
-        </div>
-        </a>
-      </div>
-    </div>
-
-
-<br>
-
-
-
-
-<!-- <div class="grid"  style="background-color:#ffffff;margin-right:2px;margin-left:2px;" *ngIf="selected_execution === true">
-  <div class="col-12 md:col-6" >
-    <div style="height:216px;"></div>
-  </div>
-  
-</div>
-<div class="grid"  style="background-color:#ffffff;margin-right:2px;margin-left:2px;" *ngIf="selected_management === true">
-  <div class="col-12 md:col-6" >
-    <div style="height:216px;"></div>
-  </div>
-  
-</div> -->
-
-
 <div class="dashboard-wrapper">
-  <!-- Aquí va tu contenido actual del dashboard -->
-  <div class="dashboard-content">
-    <!-- Tu contenido existente -->
-  
-  </div>
+
+  <!-- =========================================================
+       HERO
+       ========================================================= -->
+
+  <section class="dashboard-hero">
+
+    <div class="hero-image">
+
+      <img
+        src="assets/images/apaisado_edificio.png"
+        alt="Corporate Data Platform"
+      />
+
+      <div class="hero-overlay"></div>
+
+    </div>
+
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        CORPORATE DATA PLATFORM
+      </div>
+
+      <h1>
+        Welcome, Admin!
+      </h1>
+
+      <p>
+        Manage financial risk data from ingestion and governance
+        through analysis and risk reporting.
+      </p>
+
+      <div class="hero-actions">
+
+        <p-button
+          routerLink="/documentation"
+          styleClass="docButton"
+          label="Documentation"
+          icon="pi pi-book"
+          iconPos="right">
+        </p-button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       PLATFORM HEADER
+       ========================================================= -->
+
+  <section class="platform-header">
+
+    <div>
+
+      <div class="eyebrow">
+        PLATFORM OVERVIEW
+      </div>
+
+      <h2>
+        Financial Risk Data Management
+      </h2>
+
+    </div>
+
+    <p>
+      Centralized management of risk data, validation,
+      analysis and reporting.
+    </p>
+
+  </section>
+
+
+  <!-- =========================================================
+       MENU
+       ========================================================= -->
+
+  <nav class="dashboard-menu">
+
+    <div
+      *ngFor="let item of menuItems"
+      class="menu-item"
+      [class.selected]="selected === item"
+      (click)="onSelect(item)"
+    >
+      {{ item }}
+    </div>
+
+  </nav>
+
+
+  <!-- =========================================================
+       ALL
+       ========================================================= -->
+
+  <section
+    class="dashboard-section all-section"
+    *ngIf="selected === 'All'"
+  >
+
+    <div class="cards-container">
+
+
+      <!-- UPLOAD DATA -->
+
+      <a
+        routerLink="/upload-data"
+        class="simple-card"
+      >
+
+        <div class="card-content">
+
+          <div class="card-top">
+
+            <span class="card-category">
+              DATA INGESTION
+            </span>
+
+            <div class="card-icon-wrapper">
+              <i class="pi pi-upload card-icon"></i>
+            </div>
+
+          </div>
+
+          <h3>
+            Upload Data
+          </h3>
+
+          <p>
+            Upload financial risk exposure datasets
+            into the platform.
+          </p>
+
+          <span class="card-link">
+            Open module
+            <i class="pi pi-arrow-right"></i>
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- HOUSEKEEPING -->
+
+      <a
+        routerLink="/housekeeping"
+        class="simple-card"
+      >
+
+        <div class="card-content">
+
+          <div class="card-top">
+
+            <span class="card-category">
+              DATA INGESTION
+            </span>
+
+            <div class="card-icon-wrapper">
+              <i class="pi pi-database card-icon"></i>
+            </div>
+
+          </div>
+
+          <h3>
+            Housekeeping
+          </h3>
+
+          <p>
+            Search, review and remove risk exposure
+            records when required.
+          </p>
+
+          <span class="card-link">
+            Open module
+            <i class="pi pi-arrow-right"></i>
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- DATA QUALITY -->
+
+      <a
+        routerLink="/data-quality"
+        class="simple-card"
+      >
+
+        <div class="card-content">
+
+          <div class="card-top">
+
+            <span class="card-category">
+              DATA GOVERNANCE
+            </span>
+
+            <div class="card-icon-wrapper">
+              <i class="pi pi-check-circle card-icon"></i>
+            </div>
+
+          </div>
+
+          <h3>
+            Data Quality
+          </h3>
+
+          <p>
+            Validate the integrity, completeness
+            and consistency of risk data.
+          </p>
+
+          <span class="card-link">
+            Open module
+            <i class="pi pi-arrow-right"></i>
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- AUDIT LOG -->
+
+      <a
+        routerLink="/audit-log"
+        class="simple-card"
+      >
+
+        <div class="card-content">
+
+          <div class="card-top">
+
+            <span class="card-category">
+              DATA GOVERNANCE
+            </span>
+
+            <div class="card-icon-wrapper">
+              <i class="pi pi-history card-icon"></i>
+            </div>
+
+          </div>
+
+          <h3>
+            Audit Log
+          </h3>
+
+          <p>
+            Track uploads, changes and activity
+            across the platform.
+          </p>
+
+          <span class="card-link">
+            Open module
+            <i class="pi pi-arrow-right"></i>
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- DATA EXPLORER -->
+
+      <a
+        routerLink="/data-explorer"
+        class="simple-card"
+      >
+
+        <div class="card-content">
+
+          <div class="card-top">
+
+            <span class="card-category">
+              DATA ANALYSIS
+            </span>
+
+            <div class="card-icon-wrapper">
+              <i class="pi pi-search card-icon"></i>
+            </div>
+
+          </div>
+
+          <h3>
+            Data Explorer
+          </h3>
+
+          <p>
+            Explore and review financial risk data
+            using interactive filters.
+          </p>
+
+          <span class="card-link">
+            Open module
+            <i class="pi pi-arrow-right"></i>
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- REPORTING -->
+
+      <a
+        routerLink="/reporting"
+        class="simple-card"
+      >
+
+        <div class="card-content">
+
+          <div class="card-top">
+
+            <span class="card-category">
+              DATA ANALYSIS
+            </span>
+
+            <div class="card-icon-wrapper">
+              <i class="pi pi-chart-bar card-icon"></i>
+            </div>
+
+          </div>
+
+          <h3>
+            Reporting
+          </h3>
+
+          <p>
+            Filter datasets, calculate risk metrics
+            and generate reporting outputs.
+          </p>
+
+          <span class="card-link">
+            Open module
+            <i class="pi pi-arrow-right"></i>
+          </span>
+
+        </div>
+
+      </a>
+
+
+      <!-- AUDIT REPORTING -->
+
+      <a
+        routerLink="/audit-reporting"
+        class="simple-card"
+      >
+
+        <div class="card-content">
+
+          <div class="card-top">
+
+            <span class="card-category">
+              RISK REPORTING
+            </span>
+
+            <div class="card-icon-wrapper">
+              <i class="pi pi-file-check card-icon"></i>
+            </div>
+
+          </div>
+
+          <h3>
+            Audit Reporting
+          </h3>
+
+          <p>
+            Review reporting activity and generated
+            risk analysis results.
+          </p>
+
+          <span class="card-link">
+            Open module
+            <i class="pi pi-arrow-right"></i>
+          </span>
+
+        </div>
+
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       FILTERED VIEW
+       ========================================================= -->
+
+  <section
+    class="dashboard-section filtered-section"
+    *ngIf="selected !== 'All'"
+  >
+
+    <div class="section-title">
+
+      <div class="eyebrow">
+        {{ selected | uppercase }}
+      </div>
+
+      <h2>
+        {{ selected }}
+      </h2>
+
+    </div>
+
+
+    <div class="cards-container">
+
+
+      <!-- DATA INGESTION -->
+
+      <ng-container *ngIf="selected === 'Data Ingestion'">
+
+        <a
+          routerLink="/upload-data"
+          class="simple-card"
+        >
+
+          <div class="card-content">
+
+            <div class="card-top">
+
+              <span class="card-category">
+                DATA INGESTION
+              </span>
+
+              <div class="card-icon-wrapper">
+                <i class="pi pi-upload card-icon"></i>
+              </div>
+
+            </div>
+
+            <h3>Upload Data</h3>
+
+            <p>
+              Upload financial risk exposure datasets
+              into the platform.
+            </p>
+
+            <span class="card-link">
+              Open module
+              <i class="pi pi-arrow-right"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+
+        <a
+          routerLink="/housekeeping"
+          class="simple-card"
+        >
+
+          <div class="card-content">
+
+            <div class="card-top">
+
+              <span class="card-category">
+                DATA INGESTION
+              </span>
+
+              <div class="card-icon-wrapper">
+                <i class="pi pi-database card-icon"></i>
+              </div>
+
+            </div>
+
+            <h3>Housekeeping</h3>
+
+            <p>
+              Search, review and remove risk exposure
+              records when required.
+            </p>
+
+            <span class="card-link">
+              Open module
+              <i class="pi pi-arrow-right"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+      </ng-container>
+
+
+      <!-- DATA GOVERNANCE -->
+
+      <ng-container *ngIf="selected === 'Data Governance'">
+
+        <a
+          routerLink="/data-quality"
+          class="simple-card"
+        >
+
+          <div class="card-content">
+
+            <div class="card-top">
+
+              <span class="card-category">
+                DATA GOVERNANCE
+              </span>
+
+              <div class="card-icon-wrapper">
+                <i class="pi pi-check-circle card-icon"></i>
+              </div>
+
+            </div>
+
+            <h3>Data Quality</h3>
+
+            <p>
+              Validate the integrity, completeness
+              and consistency of risk data.
+            </p>
+
+            <span class="card-link">
+              Open module
+              <i class="pi pi-arrow-right"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+
+        <a
+          routerLink="/audit-log"
+          class="simple-card"
+        >
+
+          <div class="card-content">
+
+            <div class="card-top">
+
+              <span class="card-category">
+                DATA GOVERNANCE
+              </span>
+
+              <div class="card-icon-wrapper">
+                <i class="pi pi-history card-icon"></i>
+              </div>
+
+            </div>
+
+            <h3>Audit Log</h3>
+
+            <p>
+              Track uploads, changes and activity
+              across the platform.
+            </p>
+
+            <span class="card-link">
+              Open module
+              <i class="pi pi-arrow-right"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+      </ng-container>
+
+
+      <!-- DATA ANALYSIS -->
+
+      <ng-container *ngIf="selected === 'Data Analysis'">
+
+        <a
+          routerLink="/data-explorer"
+          class="simple-card"
+        >
+
+          <div class="card-content">
+
+            <div class="card-top">
+
+              <span class="card-category">
+                DATA ANALYSIS
+              </span>
+
+              <div class="card-icon-wrapper">
+                <i class="pi pi-search card-icon"></i>
+              </div>
+
+            </div>
+
+            <h3>Data Explorer</h3>
+
+            <p>
+              Explore and review financial risk data
+              using interactive filters.
+            </p>
+
+            <span class="card-link">
+              Open module
+              <i class="pi pi-arrow-right"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+
+        <a
+          routerLink="/reporting"
+          class="simple-card"
+        >
+
+          <div class="card-content">
+
+            <div class="card-top">
+
+              <span class="card-category">
+                DATA ANALYSIS
+              </span>
+
+              <div class="card-icon-wrapper">
+                <i class="pi pi-chart-bar card-icon"></i>
+              </div>
+
+            </div>
+
+            <h3>Reporting</h3>
+
+            <p>
+              Filter datasets, calculate risk metrics
+              and generate reporting outputs.
+            </p>
+
+            <span class="card-link">
+              Open module
+              <i class="pi pi-arrow-right"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+      </ng-container>
+
+
+      <!-- RISK REPORTING -->
+
+      <ng-container *ngIf="selected === 'Risk Reporting'">
+
+        <a
+          routerLink="/audit-reporting"
+          class="simple-card"
+        >
+
+          <div class="card-content">
+
+            <div class="card-top">
+
+              <span class="card-category">
+                RISK REPORTING
+              </span>
+
+              <div class="card-icon-wrapper">
+                <i class="pi pi-file-check card-icon"></i>
+              </div>
+
+            </div>
+
+            <h3>Audit Reporting</h3>
+
+            <p>
+              Review reporting activity and generated
+              risk analysis results.
+            </p>
+
+            <span class="card-link">
+              Open module
+              <i class="pi pi-arrow-right"></i>
+            </span>
+
+          </div>
+
+        </a>
+
+      </ng-container>
+
+    </div>
+
+  </section>
+
 </div>
-
-
-
-

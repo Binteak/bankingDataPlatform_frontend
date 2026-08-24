@@ -4,15 +4,19 @@
 
     <div>
 
-      <h1>
-        Housekeeping
-      </h1>
+  <div class="eyebrow">
+    DATA GOVERNANCE
+  </div>
 
-      <p>
-        Search, review and remove risk exposure records.
-      </p>
+  <h1>
+    Housekeeping
+  </h1>
 
-    </div>
+  <p>
+    Search, review and remove risk exposure records.
+  </p>
+
+</div>
 
   </div>
 
@@ -40,18 +44,22 @@
     <div class="filters-grid">
 
 
-      <div class="filter-field">
+     <div class="filter-field">
 
-        <label>
-          Reporting Date
-        </label>
+  <label>
+    Reporting Date
+  </label>
 
-        <input
-          pInputText
-          type="date"
-          [(ngModel)]="filters.reporting_date">
+  <p-dropdown
+    [options]="reportingDates"
+    optionLabel="label"
+    optionValue="value"
+    [(ngModel)]="filters.reporting_date"
+    placeholder="All dates"
+    [showClear]="true">
+  </p-dropdown>
 
-      </div>
+</div>
 
 
       <div class="filter-field">
@@ -200,6 +208,7 @@
         pButton
         label="Search"
         icon="pi pi-search"
+        class="corporate-button"
         (click)="search()"
         [loading]="loading">
       </button>

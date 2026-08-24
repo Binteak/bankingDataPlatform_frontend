@@ -234,6 +234,41 @@
 }
 
 
+/* ============================================================
+   CORPORATE BUTTONS
+   ============================================================ */
+
+:host ::ng-deep .corporate-button {
+  background: #ec0000 !important;
+  border: 1px solid #ec0000 !important;
+  color: #ffffff !important;
+}
+
+:host ::ng-deep .corporate-button:hover {
+  background: #c90000 !important;
+  border-color: #c90000 !important;
+  color: #ffffff !important;
+}
+
+:host ::ng-deep .corporate-button:focus {
+  background: #ec0000 !important;
+  border-color: #ec0000 !important;
+  box-shadow: 0 0 0 2px rgba(236, 0, 0, 0.15) !important;
+}
+
+:host ::ng-deep .corporate-button:active {
+  background: #b80000 !important;
+  border-color: #b80000 !important;
+}
+
+:host ::ng-deep .corporate-button:disabled {
+  background: #f3a0a0 !important;
+  border-color: #f3a0a0 !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+
 /* RESPONSIVE */
 
 @media (max-width: 1100px) {

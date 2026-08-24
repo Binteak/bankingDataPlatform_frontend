@@ -940,7 +940,14 @@ export class ReportingComponent
             this.selectedMetrics.failedQualityChecks ??
             0
           )
-        ]
+        ],
+
+        [
+          'Quality score',
+          this.selectedMetrics.qualityScore != null
+            ? `${Number(this.selectedMetrics.qualityScore).toFixed(1)}%`
+            : 'Not available'
+        ],
 
       ];
 

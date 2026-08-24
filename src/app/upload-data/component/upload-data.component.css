@@ -1,13 +1,25 @@
+/* ============================================================
+   UPLOAD DATA
+   ============================================================ */
+
 .upload-data-container {
 
-  width: 100%;
+  padding: 32px;
 
-  padding: 2rem;
+  background: #f5f6f8;
+
+  min-height: 100vh;
+
+  color: #202124;
 
   box-sizing: border-box;
 
 }
 
+
+/* ============================================================
+   HEADER
+   ============================================================ */
 
 .page-header {
 
@@ -15,7 +27,24 @@
 
   justify-content: space-between;
 
-  align-items: center;
+  align-items: flex-start;
+
+  gap: 20px;
+
+}
+
+
+.eyebrow {
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+  color: #6b7280;
+
+  margin-bottom: 6px;
 
 }
 
@@ -24,31 +53,56 @@
 
   margin: 0;
 
-  font-size: 2rem;
+  font-size: 30px;
+
+  font-weight: 700;
+
+  letter-spacing: -0.5px;
 
 }
 
 
 .page-header p {
 
-  margin-top: 0.5rem;
+  margin: 8px 0 0;
 
-  color: #777;
+  color: #6b7280;
+
+  font-size: 14px;
 
 }
 
 
-/* ========================================================= */
-/* UPLOAD */
-/* ========================================================= */
+/* ============================================================
+   PRIME NG CARDS
+   ============================================================ */
+
+:host ::ng-deep .p-card {
+
+  border: 1px solid #e3e6ea;
+
+  border-radius: 8px;
+
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, .04);
+
+}
+
+
+/* ============================================================
+   UPLOAD
+   ============================================================ */
 
 .upload-section {
 
-  display: flex;
+  margin-top: 24px;
 
-  flex-direction: column;
+}
 
-  gap: 1.5rem;
+
+.upload-title {
+
+  margin-bottom: 24px;
 
 }
 
@@ -57,21 +111,27 @@
 
   margin: 0;
 
+  font-size: 18px;
+
+  font-weight: 700;
+
 }
 
 
 .upload-title p {
 
-  margin-top: 0.5rem;
+  margin: 6px 0 0;
 
-  color: #777;
+  color: #6b7280;
+
+  font-size: 13px;
 
 }
 
 
-/* ========================================================= */
-/* SELECTED FILE */
-/* ========================================================= */
+/* ============================================================
+   SELECTED FILE
+   ============================================================ */
 
 .selected-file {
 
@@ -79,22 +139,22 @@
 
   align-items: center;
 
-  gap: 1rem;
+  gap: 16px;
 
-  padding: 1rem;
+  padding: 16px;
 
-  border: 1px solid #ddd;
+  border: 1px solid #e3e6ea;
 
   border-radius: 8px;
 
-  background: #fafafa;
+  background: #f8f9fa;
 
 }
 
 
 .file-icon {
 
-  font-size: 2rem;
+  font-size: 28px;
 
 }
 
@@ -105,38 +165,46 @@
 
   flex-direction: column;
 
-  gap: 0.25rem;
+  gap: 4px;
 
 }
 
 
 .file-information small {
 
-  color: #777;
+  color: #6b7280;
+
+  font-size: 11px;
 
 }
 
 
-/* ========================================================= */
-/* ACTIONS */
-/* ========================================================= */
+/* ============================================================
+   ACTIONS
+   ============================================================ */
 
 .actions {
 
   display: flex;
 
-  gap: 1rem;
+  gap: 10px;
+
+  margin-top: 24px;
+
+  padding-top: 20px;
+
+  border-top: 1px solid #e5e7eb;
 
 }
 
 
-/* ========================================================= */
-/* RESULT */
-/* ========================================================= */
+/* ============================================================
+   RESULT
+   ============================================================ */
 
 .result-card {
 
-  margin-top: 1.5rem;
+  margin-top: 24px;
 
 }
 
@@ -145,55 +213,63 @@
 
   display: flex;
 
-  align-items: center;
+  align-items: flex-start;
 
-  gap: 1rem;
+  gap: 16px;
 
 }
 
 
 .result-icon {
 
-  font-size: 2rem;
+  font-size: 24px;
 
 }
 
 
 .result-content h2 {
 
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 6px;
+
+  font-size: 18px;
+
+  font-weight: 700;
 
 }
 
 
 .result-content p {
 
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 6px;
+
+  color: #6b7280;
+
+  font-size: 13px;
 
 }
 
 
 .success-card {
 
-  border-left: 5px solid #22c55e;
+  border-left: 4px solid #2e7d32 !important;
 
 }
 
 
 .error-card {
 
-  border-left: 5px solid #ef4444;
+  border-left: 4px solid #c62828 !important;
 
 }
 
 
-/* ========================================================= */
-/* INFORMATION */
-/* ========================================================= */
+/* ============================================================
+   INFORMATION
+   ============================================================ */
 
 .information-card {
 
-  margin-top: 1.5rem;
+  margin-top: 24px;
 
 }
 
@@ -202,7 +278,7 @@
 
   display: flex;
 
-  gap: 1rem;
+  gap: 16px;
 
   align-items: flex-start;
 
@@ -211,42 +287,414 @@
 
 .information-content > i {
 
-  font-size: 1.5rem;
+  font-size: 20px;
+
+  color: #6b7280;
 
 }
 
 
 .information-content h3 {
 
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 6px;
+
+  font-size: 15px;
+
+  font-weight: 700;
 
 }
 
 
 .information-content p {
 
-  margin: 0.25rem 0;
+  margin: 4px 0;
 
-  color: #666;
+  color: #6b7280;
+
+  font-size: 13px;
+
+  line-height: 1.6;
 
 }
+
+
+/* ============================================================
+   PREVIEW
+   ============================================================ */
 
 .preview-card {
-  margin-top: 1.5rem;
+
+  margin-top: 24px;
+
 }
+
 
 .table-header {
+
   display: flex;
+
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+
+  align-items: flex-start;
+
+  margin-bottom: 20px;
+
 }
+
 
 .table-header h2 {
+
   margin: 0;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
 }
 
+
 .table-header span {
-  color: #777;
-  font-size: 0.9rem;
+
+  display: block;
+
+  margin-top: 6px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+
+}
+
+
+/* ============================================================
+   TABLE
+   ============================================================ */
+
+:host ::ng-deep .corporate-table th {
+
+  background: #f8f9fa;
+
+  color: #374151;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: .5px;
+
+  border-bottom: 1px solid #dfe3e8;
+
+}
+
+
+:host ::ng-deep .corporate-table td {
+
+  font-size: 13px;
+
+  color: #374151;
+
+  padding: 14px 12px;
+
+}
+
+
+:host ::ng-deep .corporate-table tbody tr:hover {
+
+  background: #f8fafc;
+
+}
+
+
+/* ============================================================
+   FILE DROP ZONE
+   ============================================================ */
+
+.file-drop-zone {
+
+  margin-top: 24px;
+
+  min-height: 190px;
+
+  border: 1px dashed #c9cdd3;
+
+  border-radius: 8px;
+
+  background: #fafbfc;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 24px;
+
+  padding: 30px;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color .2s ease,
+    background-color .2s ease;
+
+}
+
+
+.file-drop-zone:hover {
+
+  border-color: #9fa5ad;
+
+  background: #f7f8fa;
+
+}
+
+
+/* ============================================================
+   DROP ZONE ICON
+   ============================================================ */
+
+.drop-zone-icon {
+
+  width: 56px;
+
+  height: 56px;
+
+  border-radius: 50%;
+
+  background: #f0f1f3;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+}
+
+
+.drop-zone-icon i {
+
+  font-size: 24px;
+
+  color: #4b5563;
+
+}
+
+
+/* ============================================================
+   DROP ZONE CONTENT
+   ============================================================ */
+
+.drop-zone-content {
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+}
+
+
+.drop-zone-content h3 {
+
+  margin: 0;
+
+  font-size: 15px;
+
+  font-weight: 700;
+
+  color: #202124;
+
+}
+
+
+.drop-zone-content p {
+
+  margin: 5px 0 14px;
+
+  color: #6b7280;
+
+  font-size: 13px;
+
+}
+
+
+.drop-zone-content small {
+
+  margin-top: 8px;
+
+  color: #8a9099;
+
+  font-size: 11px;
+
+}
+
+
+/* ============================================================
+   PRIME NG FILE BUTTON
+   ============================================================ */
+
+:host ::ng-deep
+.file-drop-zone .p-fileupload-basic {
+
+  display: inline-flex;
+
+}
+
+
+:host ::ng-deep
+.file-drop-zone .p-button {
+
+  font-size: 13px;
+
+  padding: 9px 16px;
+
+  border-radius: 6px;
+
+}
+
+
+/* ============================================================
+   SELECTED FILE
+   ============================================================ */
+
+.selected-file {
+
+  margin-top: 14px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 14px 16px;
+
+  border: 1px solid #dfe3e8;
+
+  border-radius: 8px;
+
+  background: #ffffff;
+
+}
+
+
+.file-icon {
+
+  width: 38px;
+
+  height: 38px;
+
+  border-radius: 6px;
+
+  background: #f1f2f4;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+}
+
+
+.file-icon i {
+
+  font-size: 18px;
+
+  color: #4b5563;
+
+}
+
+
+.file-information {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+
+}
+
+
+.file-information strong {
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  color: #202124;
+
+}
+
+
+.file-information small {
+
+  color: #6b7280;
+
+  font-size: 11px;
+
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+  .upload-data-container {
+
+    padding: 20px;
+
+  }
+
+
+  .page-header {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+  }
+
+
+  .selected-file {
+
+    align-items: flex-start;
+
+  }
+
+
+  .actions {
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+  }
+
+
+  .actions button {
+
+    width: 100%;
+
+  }
+
+
+  .table-header {
+
+    flex-direction: column;
+
+    gap: 12px;
+
+  }
+
 }

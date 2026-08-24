@@ -58,3 +58,70 @@ html, body {
 }
 
 
+/* ============================================================
+   CORPORATE RED THEME
+   ============================================================ */
+
+:host ::ng-deep .p-button {
+  background: #ec0000;
+  border-color: #ec0000;
+  color: #ffffff;
+}
+
+:host ::ng-deep .p-button:hover {
+  background: #c90000;
+  border-color: #c90000;
+  color: #ffffff;
+}
+
+:host ::ng-deep .p-button:focus {
+  box-shadow: 0 0 0 2px rgba(236, 0, 0, 0.15);
+}
+
+:host ::ng-deep .p-button:active {
+  background: #b80000;
+  border-color: #b80000;
+}
+
+/* Outlined buttons */
+
+:host ::ng-deep .p-button.p-button-outlined {
+  background: #ffffff;
+  border-color: #ec0000;
+  color: #ec0000;
+}
+
+:host ::ng-deep .p-button.p-button-outlined:hover {
+  background: #fdecec;
+  border-color: #c90000;
+  color: #c90000;
+}
+
+/* Dropdown focus */
+
+:host ::ng-deep .p-dropdown:not(.p-disabled).p-focus {
+  border-color: #ec0000;
+  box-shadow: 0 0 0 1px rgba(236, 0, 0, 0.15);
+}
+
+/* Inputs focus */
+
+:host ::ng-deep .p-inputtext:enabled:focus {
+  border-color: #ec0000;
+  box-shadow: 0 0 0 1px rgba(236, 0, 0, 0.15);
+}
+
+/* Checkbox / radio / selection */
+
+:host ::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+  background: #ec0000;
+  border-color: #ec0000;
+}
+
+:host ::ng-deep .p-radiobutton .p-radiobutton-box.p-highlight {
+  border-color: #ec0000;
+}
+
+:host ::ng-deep .p-radiobutton .p-radiobutton-box.p-highlight::before {
+  background: #ec0000;
+}
