@@ -38,8 +38,18 @@ npm install karma karma-jasmine karma-chrome-launcher karma-coverage jasmine-cor
 DESPLIEGUE
 1. Comprobamos despliegue en local
 
-npm run build
+
+
+
+Remove-Item -Recurse -Force dist -> eliminar el dist
+npm run build -> lanzamos de nuevo
 npx http-server dist/frontend/browser
+npx serve -s dist/frontend/browser
+
+borramos cache en el navegador
+
+
+
 
 Available on:
   http://127.0.0.1:8080

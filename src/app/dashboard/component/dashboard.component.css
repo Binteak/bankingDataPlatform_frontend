@@ -562,6 +562,60 @@
 }
 
 
+/* =========================================================
+   DEMO NOTICE
+========================================================= */
+
+.demo-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  margin-top: 22px;
+  padding: 13px 16px;
+
+  max-width: 620px;
+
+  background: rgba(255, 255, 255, 0.92);
+
+  border-left: 3px solid #ec0000;
+  border-radius: 6px;
+
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.demo-notice > i {
+  color: #ec0000;
+
+  font-size: 17px;
+
+  margin-top: 2px;
+}
+
+.demo-notice > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.demo-notice strong {
+  color: #222;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.demo-notice span {
+  color: #666;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
 /* ============================================================
    RESPONSIVE
    ============================================================ */

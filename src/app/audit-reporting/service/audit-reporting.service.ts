@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from '../../../environments/environment';
+import { ReportingServiceProd } from '../../service/audit-reporting.service.prod';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +16,8 @@ export class ReportingService {
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private prodService: ReportingServiceProd
   ) {}
 
 
@@ -22,6 +26,13 @@ export class ReportingService {
   // ==========================================================
 
   getReports(): Observable<any> {
+
+    if (environment.useMockData) {
+
+      return this.prodService.getReports();
+
+    }
+
 
     return this.http.get(
       this.apiUrl
@@ -38,13 +49,26 @@ export class ReportingService {
     filters: any
   ): Observable<any> {
 
+    if (environment.useMockData) {
+
+      return this.prodService.getFilters(
+        filters
+      );
+
+    }
+
+
     let params = new HttpParams()
-      .set('action', 'filters');
+      .set(
+        'action',
+        'filters'
+      );
 
 
     Object.keys(filters).forEach(key => {
 
       const value = filters[key];
+
 
       if (
         value !== null &&
@@ -78,6 +102,15 @@ export class ReportingService {
     filters: any
   ): Observable<any> {
 
+    if (environment.useMockData) {
+
+      return this.prodService.generateReport(
+        filters
+      );
+
+    }
+
+
     return this.http.post(
       this.apiUrl,
       filters
@@ -94,13 +127,26 @@ export class ReportingService {
     filters: any
   ): Observable<Blob> {
 
+    if (environment.useMockData) {
+
+      return this.prodService.exportFilteredData(
+        filters
+      );
+
+    }
+
+
     let params = new HttpParams()
-      .set('action', 'export');
+      .set(
+        'action',
+        'export'
+      );
 
 
     Object.keys(filters).forEach(key => {
 
       const value = filters[key];
+
 
       if (
         value !== null &&
@@ -139,7 +185,8 @@ export class ReportingService {
 
     return value.replace(
       /[A-Z]/g,
-      letter => `_${letter.toLowerCase()}`
+      letter =>
+        `_${letter.toLowerCase()}`
     );
 
   }
