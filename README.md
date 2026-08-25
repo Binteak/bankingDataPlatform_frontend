@@ -71,11 +71,12 @@ The application is designed to demonstrate the functionality and architecture of
 
 ### Dashboard
 
-![Dashboard](screenshots/dashboard.png)
+<img width="3841" height="1917" alt="BDP_Dashboard" src="https://github.com/user-attachments/assets/1ddec8a6-8d5c-44d6-85eb-13ac32512aed" />
 
 ### Data Upload
 
-![Data Upload](screenshots/upload-data.png)
+![Data Upload](screenshots/upload-data.png)![Uploading BDP_Dashboard.png…]()
+
 
 ### Data Quality
 
