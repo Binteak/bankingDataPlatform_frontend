@@ -40,21 +40,10 @@ export class DataQualityService {
 
   getDatasets(): Observable<any> {
 
-
-    // ========================================================
-    // MOCK MODE
-    // ========================================================
-
     if (environment.useMockData) {
-
 
       const data =
         this.mockStore.getData();
-
-
-      // ------------------------------------------------------
-      // GROUP DATA BY COUNTRY
-      // ------------------------------------------------------
 
       const grouped =
         new Map<string, Set<string>>();
@@ -62,13 +51,9 @@ export class DataQualityService {
 
       data.forEach(record => {
 
-
         if (!record.country) {
-
           return;
-
         }
-
 
         if (!grouped.has(record.country)) {
 
@@ -78,7 +63,6 @@ export class DataQualityService {
           );
 
         }
-
 
         if (record.reportingDate) {
 
@@ -91,59 +75,28 @@ export class DataQualityService {
       });
 
 
-      // ------------------------------------------------------
-      // CONVERT TO COMPONENT STRUCTURE
-      //
-      // {
-      //   country: 'Spain',
-      //   dates: [
-      //     '2025-01-31',
-      //     '2025-02-28'
-      //   ]
-      // }
-      // ------------------------------------------------------
-
       const datasets =
-        Array.from(
-          grouped.entries()
-        )
-        .map(
-          ([country, dates]) => ({
+        Array.from(grouped.entries())
+          .map(([country, dates]) => ({
 
-            country:
-
-              country,
+            country,
 
             dates:
+              Array.from(dates).sort()
 
-              Array.from(dates)
-                .sort()
+          }));
 
-          })
-        );
-
-
-      // ------------------------------------------------------
-      // RETURN SAME STRUCTURE EXPECTED BY COMPONENT
-      // ------------------------------------------------------
 
       return of({
 
-        status:
-          'success',
+        status: 'success',
 
-        datasets:
-
-          datasets
+        datasets
 
       });
 
     }
 
-
-    // ========================================================
-    // REAL BACKEND
-    // ========================================================
 
     return this.http.get(
       this.apiUrl
@@ -157,425 +110,346 @@ export class DataQualityService {
   // ==========================================================
 
   runChecks(
-  country: string,
-  reportingDate: string
-): Observable<any> {
-
-  // ========================================================
-  // MOCK MODE
-  // ========================================================
-
-  if (environment.useMockData) {
-
-    // ------------------------------------------------------
-    // GET DATA FROM MOCK STORE
-    // ------------------------------------------------------
-
-    let data =
-      this.mockStore.getData();
+    country: string,
+    reportingDate: string
+  ): Observable<any> {
 
 
-    // ------------------------------------------------------
-    // FILTER COUNTRY
-    // ------------------------------------------------------
+    // ========================================================
+    // MOCK
+    // ========================================================
 
-    data =
-      data.filter(
-        record =>
-          record.country === country
-      );
+    if (environment.useMockData) {
 
 
-    // ------------------------------------------------------
-    // FILTER REPORTING DATE
-    // ------------------------------------------------------
-
-    data =
-      data.filter(
-        record =>
-          record.reportingDate === reportingDate
-      );
+      const data =
+        this.mockStore
+          .getData()
+          .filter(record =>
+            record.country === country &&
+            record.reportingDate === reportingDate
+          );
 
 
-    // ======================================================
-    // NUMBER OF RECORDS
-    // ======================================================
-
-    const records =
-      data.length;
+      const recordsChecked =
+        data.length;
 
 
-    // ======================================================
-    // CONTROL 1
-    // MISSING ENTITY ID
-    // ======================================================
+      const executionDate =
+        new Date().toISOString();
 
-    const missingEntityId =
-      data.filter(
-        record =>
+
+      // ======================================================
+      // CHECK 1 — MISSING ENTITY ID
+      // ======================================================
+
+      const missingEntityId =
+        data.filter(record =>
           !record.entityId ||
           record.entityId.trim() === ''
-      ).length;
+        ).length;
 
 
-    // ======================================================
-    // CONTROL 2
-    // INVALID PD
-    // ======================================================
+      // ======================================================
+      // CHECK 2 — INVALID PD
+      // ======================================================
 
-    const invalidPd =
-      data.filter(
-        record =>
+      const invalidPd =
+        data.filter(record =>
           record.pd === null ||
           record.pd === undefined ||
           record.pd < 0 ||
           record.pd > 1
-      ).length;
+        ).length;
 
 
-    // ======================================================
-    // CONTROL 3
-    // INVALID LGD
-    // ======================================================
+      // ======================================================
+      // CHECK 3 — INVALID LGD
+      // ======================================================
 
-    const invalidLgd =
-      data.filter(
-        record =>
+      const invalidLgd =
+        data.filter(record =>
           record.lgd === null ||
           record.lgd === undefined ||
           record.lgd < 0 ||
           record.lgd > 1
-      ).length;
+        ).length;
 
 
-    // ======================================================
-    // CONTROL 4
-    // DEFAULT CONSISTENCY
-    // ======================================================
+      // ======================================================
+      // CHECK 4 — DEFAULT CONSISTENCY
+      // ======================================================
 
-    const inconsistentDefaults =
-      data.filter(record => {
+      const inconsistentDefaults =
+        data.filter(record => {
 
-        // Default = true → debe existir fecha
-
-        if (
-          record.defaultFlag === true &&
-          !record.defaultDate
-        ) {
-
-          return true;
-
-        }
+          if (
+            record.defaultFlag === true &&
+            !record.defaultDate
+          ) {
+            return true;
+          }
 
 
-        // Default = false → no debería existir fecha
-
-        if (
-          record.defaultFlag === false &&
-          record.defaultDate
-        ) {
-
-          return true;
-
-        }
+          if (
+            record.defaultFlag === false &&
+            record.defaultDate
+          ) {
+            return true;
+          }
 
 
-        return false;
+          return false;
 
-      }).length;
+        }).length;
 
 
-    // ======================================================
-    // CONTROL 5
-    // EAD GREATER THAN EXPOSURE
-    // ======================================================
+      // ======================================================
+      // CHECK 5 — EAD GREATER THAN EXPOSURE
+      // ======================================================
 
-    const invalidEad =
-      data.filter(
-        record =>
+      const invalidEad =
+        data.filter(record =>
           record.eadAmount >
           record.exposureAmount
-      ).length;
+        ).length;
 
 
-    // ======================================================
-    // RESULTS
-    // ======================================================
+      // ======================================================
+      // RESULTS
+      // ======================================================
 
-    const results = [
+      const results = [
 
-      // ----------------------------------------------------
-      // MISSING ENTITY ID
-      // ----------------------------------------------------
+        {
+          check_name:
+            'Missing Entity ID',
 
-      {
+          check_description:
+            'Validates that every exposure contains a valid entity identifier.',
 
-        control:
-          'Missing Entity ID',
+          status:
+            missingEntityId === 0
+              ? 'PASSED'
+              : 'FAILED',
 
-        description:
-          'Validates that every exposure contains a valid entity identifier.',
+          records_checked:
+            recordsChecked,
+
+          records_failed:
+            missingEntityId,
+
+          execution_date:
+            executionDate,
+
+          details:
+            missingEntityId === 0
+              ? 'No missing entity identifiers detected.'
+              : `${missingEntityId} missing entity identifiers detected.`
+        },
+
+
+        {
+          check_name:
+            'Invalid PD',
+
+          check_description:
+            'Validates that Probability of Default is between 0 and 1.',
+
+          status:
+            invalidPd === 0
+              ? 'PASSED'
+              : 'FAILED',
+
+          records_checked:
+            recordsChecked,
+
+          records_failed:
+            invalidPd,
+
+          execution_date:
+            executionDate,
+
+          details:
+            invalidPd === 0
+              ? 'No invalid PD values detected.'
+              : `${invalidPd} invalid PD values detected.`
+        },
+
+
+        {
+          check_name:
+            'Invalid LGD',
+
+          check_description:
+            'Validates that Loss Given Default is between 0 and 1.',
+
+          status:
+            invalidLgd === 0
+              ? 'PASSED'
+              : 'FAILED',
+
+          records_checked:
+            recordsChecked,
+
+          records_failed:
+            invalidLgd,
+
+          execution_date:
+            executionDate,
+
+          details:
+            invalidLgd === 0
+              ? 'No invalid LGD values detected.'
+              : `${invalidLgd} invalid LGD values detected.`
+        },
+
+
+        {
+          check_name:
+            'Default Consistency',
+
+          check_description:
+            'Validates consistency between default status and default date.',
+
+          status:
+            inconsistentDefaults === 0
+              ? 'PASSED'
+              : 'FAILED',
+
+          records_checked:
+            recordsChecked,
+
+          records_failed:
+            inconsistentDefaults,
+
+          execution_date:
+            executionDate,
+
+          details:
+            inconsistentDefaults === 0
+              ? 'Default status and dates are consistent.'
+              : `${inconsistentDefaults} inconsistent default records.`
+        },
+
+
+        {
+          check_name:
+            'EAD Greater Than Exposure',
+
+          check_description:
+            'Validates that Exposure at Default does not exceed total exposure.',
+
+          status:
+            invalidEad === 0
+              ? 'PASSED'
+              : 'FAILED',
+
+          records_checked:
+            recordsChecked,
+
+          records_failed:
+            invalidEad,
+
+          execution_date:
+            executionDate,
+
+          details:
+            invalidEad === 0
+              ? 'All EAD values are within the exposure limit.'
+              : `${invalidEad} invalid EAD values detected.`
+        }
+
+      ];
+
+
+      // ======================================================
+      // SUMMARY
+      // ======================================================
+
+      const checksExecuted =
+        results.length;
+
+
+      const checksPassed =
+        results.filter(
+          result =>
+            result.status === 'PASSED'
+        ).length;
+
+
+      const checksFailed =
+        results.filter(
+          result =>
+            result.status === 'FAILED'
+        ).length;
+
+
+      const qualityScore =
+        checksExecuted > 0
+          ? (
+              checksPassed /
+              checksExecuted
+            ) * 100
+          : 100;
+
+
+      // ======================================================
+      // RESPONSE
+      // ======================================================
+
+      return of({
 
         status:
-          missingEntityId === 0
-            ? 'PASSED'
-            : 'FAILED',
+          'success',
 
-        records:
-          records,
+        summary: {
 
-        failed:
-          missingEntityId,
+          recordsChecked:
+            recordsChecked,
 
-        execution:
-          new Date().toISOString(),
+          checksExecuted:
+            checksExecuted,
 
-        details:
-          missingEntityId === 0
+          checksPassed:
+            checksPassed,
 
-            ? 'No missing entity identifiers detected.'
+          checksFailed:
+            checksFailed,
 
-            : `${missingEntityId} missing entity identifiers detected.`
+          qualityScore:
+            Number(
+              qualityScore.toFixed(2)
+            )
 
-      },
+        },
 
-
-      // ----------------------------------------------------
-      // INVALID PD
-      // ----------------------------------------------------
-
-      {
-
-        control:
-          'Invalid PD',
-
-        description:
-          'Validates that Probability of Default is between 0 and 1.',
-
-        status:
-          invalidPd === 0
-            ? 'PASSED'
-            : 'FAILED',
-
-        records:
-          records,
-
-        failed:
-          invalidPd,
-
-        execution:
-          new Date().toISOString(),
-
-        details:
-          invalidPd === 0
-
-            ? 'All PD values are within the expected range.'
-
-            : `${invalidPd} invalid PD values detected.`
-
-      },
-
-
-      // ----------------------------------------------------
-      // INVALID LGD
-      // ----------------------------------------------------
-
-      {
-
-        control:
-          'Invalid LGD',
-
-        description:
-          'Validates that Loss Given Default is between 0 and 1.',
-
-        status:
-          invalidLgd === 0
-            ? 'PASSED'
-            : 'FAILED',
-
-        records:
-          records,
-
-        failed:
-          invalidLgd,
-
-        execution:
-          new Date().toISOString(),
-
-        details:
-          invalidLgd === 0
-
-            ? 'All LGD values are within the expected range.'
-
-            : `${invalidLgd} invalid LGD values detected.`
-
-      },
-
-
-      // ----------------------------------------------------
-      // DEFAULT CONSISTENCY
-      // ----------------------------------------------------
-
-      {
-
-        control:
-          'Default Consistency',
-
-        description:
-          'Validates consistency between default status and default date.',
-
-        status:
-          inconsistentDefaults === 0
-            ? 'PASSED'
-            : 'FAILED',
-
-        records:
-          records,
-
-        failed:
-          inconsistentDefaults,
-
-        execution:
-          new Date().toISOString(),
-
-        details:
-          inconsistentDefaults === 0
-
-            ? 'Default status and dates are consistent.'
-
-            : `${inconsistentDefaults} inconsistent default records.`
-
-      },
-
-
-      // ----------------------------------------------------
-      // EAD GREATER THAN EXPOSURE
-      // ----------------------------------------------------
-
-      {
-
-        control:
-          'EAD Greater Than Exposure',
-
-        description:
-          'Validates that Exposure at Default does not exceed total exposure.',
-
-        status:
-          invalidEad === 0
-            ? 'PASSED'
-            : 'FAILED',
-
-        records:
-          records,
-
-        failed:
-          invalidEad,
-
-        execution:
-          new Date().toISOString(),
-
-        details:
-          invalidEad === 0
-
-            ? 'All EAD values are within the exposure limit.'
-
-            : `${invalidEad} invalid EAD values detected.`
-
-      }
-
-    ];
-
-
-    // ======================================================
-    // SUMMARY
-    // ======================================================
-
-    const checksExecuted =
-      results.length;
-
-
-    const checksPassed =
-      results.filter(
-        result =>
-          result.status === 'PASSED'
-      ).length;
-
-
-    const checksFailed =
-      results.filter(
-        result =>
-          result.status === 'FAILED'
-      ).length;
-
-
-    const qualityScore =
-      checksExecuted > 0
-
-        ? (
-            checksPassed /
-            checksExecuted
-          ) * 100
-
-        : 100;
-
-
-    // ======================================================
-    // RESPONSE
-    // ======================================================
-
-    return of({
-
-      status:
-        'success',
-
-      summary: {
-
-        recordsChecked:
-          records,
-
-        checksExecuted:
-          checksExecuted,
-
-        checksPassed:
-          checksPassed,
-
-        checksFailed:
-          checksFailed,
-
-        qualityScore:
-          Number(
-            qualityScore.toFixed(2)
-          )
-
-      },
-
-      results:
         results
 
-    });
-
-  }
-
-
-  // ========================================================
-  // REAL BACKEND
-  // ========================================================
-
-  return this.http.post(
-
-    this.apiUrl,
-
-    {
-
-      country:
-        country,
-
-      reporting_date:
-        reportingDate
+      });
 
     }
 
-  );
 
-}
+    // ========================================================
+    // BACKEND
+    // ========================================================
+
+    return this.http.post(
+
+      this.apiUrl,
+
+      {
+
+        country,
+
+        reporting_date:
+          reportingDate
+
+      }
+
+    );
+
+  }
+
 }
