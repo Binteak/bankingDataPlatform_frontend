@@ -30,3 +30,19 @@ ng generate config karma -> Creamos la configuración que Karma necesita para sa
 Si falla (dependencias):
 npm install
 npm install karma karma-jasmine karma-chrome-launcher karma-coverage jasmine-core @types/jasmine @angular-devkit/build-angular --save-dev
+
+
+
+
+
+DESPLIEGUE
+1. Comprobamos despliegue en local
+
+npm run build
+npx http-server dist/frontend/browser
+
+Available on:
+  http://127.0.0.1:8080
+
+2. Desplegamos en Github (main)
+3. Render despliega por nosotros
