@@ -1,60 +1,94 @@
-# Frontend
+# Banking Data Platform — Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.13.
+Frontend web application for a banking data governance and regulatory reporting platform.
 
-## Development server
+The application provides an interactive interface for managing banking risk exposure data, performing data quality checks, exploring datasets and reviewing regulatory reporting results.
 
-To start a local development server, run:
+## Features
 
-```bash
-ng serve
-```
+- Interactive dashboard
+- CSV data upload interface
+- Dataset management
+- Data Quality controls
+- Data validation and monitoring
+- Data Explorer with interactive filters
+- Risk reporting and analysis
+- Audit reporting
+- Housekeeping and data management
+- Audit log visualization
+- Responsive user interface
+- Mock data support for production demo
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Technologies
 
-## Code scaffolding
+- Angular
+- TypeScript
+- HTML
+- SCSS
+- PrimeNG
+- RxJS
+- REST API
+- Netlify
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Architecture
 
-```bash
-ng generate component component-name
-```
+The frontend is built with Angular using a component-based architecture.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+The application communicates with the Django REST API to retrieve, process and display banking risk data.
 
-```bash
-ng generate --help
-```
+The frontend is responsible for:
 
-## Building
+- User interface and navigation
+- Data visualization
+- Form handling
+- Client-side validation
+- Filtering and data exploration
+- Reporting views
+- API communication
+- Application state management
 
-To build the project run:
+## Backend
 
-```bash
-ng build
-```
+This frontend works together with the Banking Data Platform backend:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+https://github.com/Binteak/bankingDataPlatform_backend
 
-## Running unit tests
+## Demo
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+The application is deployed on Netlify:
 
-```bash
-ng test
-```
+https://bankingdataplatform.netlify.app/
 
-## Running end-to-end tests
+## Production Demo
 
-For end-to-end (e2e) testing, run:
+The deployed version runs using mock data for demonstration purposes.
 
-```bash
-ng e2e
-```
+No real banking or customer data is used.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+The application is designed to demonstrate the functionality and architecture of a banking data governance and regulatory reporting platform.
 
-## Additional Resources
+## Screenshots
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-"# CCR_app" 
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### Data Upload
+
+![Data Upload](screenshots/upload-data.png)
+
+### Data Quality
+
+![Data Quality](screenshots/data-quality.png)
+
+### Data Explorer
+
+![Data Explorer](screenshots/data-explorer.png)
+
+### Reporting
+
+![Reporting](screenshots/reporting.png)
+
+### Audit Reporting
+
+![Audit Reporting](screenshots/audit-reporting.png)
