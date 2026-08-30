@@ -55,7 +55,7 @@ https://github.com/Binteak/bankingDataPlatform_backend
 
 ## Demo
 
-The application is deployed on Netlify:
+The application is deployed on Render:
 
 https://banking-data-platform-frontend.onrender.com
 
